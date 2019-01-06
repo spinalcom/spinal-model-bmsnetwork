@@ -1,0 +1,30 @@
+{
+  "name": "spinal-model-bmsnetwork",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/SpinalBms.js",
+  "scripts": {
+    "build": "rm -fr dist && tsc",
+    "dev": "rm -fr dist && tsc --watch & nodemon dist"
+  },
+  "keywords": [],
+  "types": "./dist/SpinalBms.d.ts",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "spinal-core-connectorjs_type": "git+https://github.com/spinalcom/spinal-core-connectorjs_type.git"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.12",
+    "@types/mocha": "^5.2.5",
+    "jsdoc-to-markdown": "^4.0.1",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.8",
+    "spinal-lib-forgefile": "git+https://github.com/spinalcom/spinal-lib-forgefile.git",
+    "tsc": "^1.20150623.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.2.2",
+    "typescript-eslint-parser": "^21.0.2"
+  }
+}
