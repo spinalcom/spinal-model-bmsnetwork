@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const spinal_core_connectorjs_type_1 = require("spinal-core-connectorjs_type");
 const genUID_1 = require("../Utils/genUID");
 class SpinalBmsEndpoint extends spinal_core_connectorjs_type_1.Model {
-    constructor(name = '', path = '', currentValue = '', unit = '', dataType = '', id = genUID_1.genUID('SpinalBmsEndpoint')) {
+    constructor(name = '', path = '', currentValue = '', unit = '', dataType = '', type = '', id = genUID_1.genUID('SpinalBmsEndpoint')) {
         super();
         this.add_attr({
             id,
@@ -35,6 +35,7 @@ class SpinalBmsEndpoint extends spinal_core_connectorjs_type_1.Model {
             currentValue,
             unit,
             dataType,
+            type,
         });
     }
 }

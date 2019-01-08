@@ -33,10 +33,12 @@ class SpinalBmsEndpoint extends Model {
   public path: spinal.Str;
   public currentValue: spinal.Str | spinal.Val;
   public unit: spinal.Str;
+  public type: spinal.Str;
   public dataType: spinal.Str;
 
-  constructor(name: string = '', path: string = '', currentValue: string | number = '',
-              unit: string = '', dataType: string = '', id: string = genUID('SpinalBmsEndpoint')) {
+  constructor(name: string = '', path: string = '', currentValue: string|number = '',
+              unit: string = '', dataType: string = '', type: string = '',
+              id: string = genUID('SpinalBmsEndpoint')) {
     super();
     this.add_attr({
       id,
@@ -45,6 +47,7 @@ class SpinalBmsEndpoint extends Model {
       currentValue,
       unit,
       dataType,
+      type,
     });
   }
 }
