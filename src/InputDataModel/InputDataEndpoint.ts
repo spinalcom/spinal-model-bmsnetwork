@@ -1,4 +1,3 @@
-"use strict";
 /*
  * Copyright 2018 SpinalCom - www.spinalcom.com
  *
@@ -22,17 +21,29 @@
  * with this file. If not, see
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-}
+
+import { InputDataEndpointDataType } from './InputDataEndpointDataType';
+import { InputDataEndpointType } from './InputDataEndpointType';
+
 /**
- * @param {string} constructor
- * @returns {string}
+ * @property {string} id
+ * @property {string} name
+ * @property {string} path
+ * @property {number|string} currentValue;
+ * @property {string} unit
+ * @property {InputDataEndpointDataType} dataType
+ * @property {InputDataEndpointType} type
+ * @property {string} nodeTypeName should be SpinalBmsEndpoint.nodeTypeName || 'BmsEndpoint'
+ * @export
+ * @class InputDataEndpoint
  */
-function genUID(constructor) {
-    const res = `${constructor}-${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}-${Date.now().toString(16)}`;
-    return res;
+export interface InputDataEndpoint {
+  id: string;
+  name: string;
+  path: string;
+  currentValue: number|string;
+  unit: string;
+  dataType: InputDataEndpointDataType;
+  type: InputDataEndpointType;
+  nodeTypeName: string; // should be SpinalBmsEndpoint.nodeTypeName || 'BmsEndpoint'
 }
-exports.genUID = genUID;
-//# sourceMappingURL=genUID.js.map

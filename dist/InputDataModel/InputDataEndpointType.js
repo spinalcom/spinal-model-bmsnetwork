@@ -23,16 +23,17 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-}
 /**
- * @param {string} constructor
- * @returns {string}
+ * @enum {number}
  */
-function genUID(constructor) {
-    const res = `${constructor}-${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}-${Date.now().toString(16)}`;
-    return res;
-}
-exports.genUID = genUID;
-//# sourceMappingURL=genUID.js.map
+var InputDataEndpointType;
+(function (InputDataEndpointType) {
+    InputDataEndpointType[InputDataEndpointType["Temperature"] = 0] = "Temperature";
+    InputDataEndpointType[InputDataEndpointType["Hygrometry"] = 1] = "Hygrometry";
+    InputDataEndpointType[InputDataEndpointType["Power"] = 2] = "Power";
+    InputDataEndpointType[InputDataEndpointType["Occupation"] = 3] = "Occupation";
+    InputDataEndpointType[InputDataEndpointType["Light"] = 4] = "Light";
+    InputDataEndpointType[InputDataEndpointType["Alarm"] = 5] = "Alarm";
+    InputDataEndpointType[InputDataEndpointType["Other"] = 6] = "Other";
+})(InputDataEndpointType = exports.InputDataEndpointType || (exports.InputDataEndpointType = {}));
+//# sourceMappingURL=InputDataEndpointType.js.map

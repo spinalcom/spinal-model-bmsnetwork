@@ -1,4 +1,3 @@
-"use strict";
 /*
  * Copyright 2018 SpinalCom - www.spinalcom.com
  *
@@ -22,17 +21,24 @@
  * with this file. If not, see
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-}
+
+import { InputDataEndpoint } from './InputDataEndpoint';
+
 /**
- * @param {string} constructor
- * @returns {string}
+ * @export
+ * @interface InputDataEndpointGroup
+ * @property {string} id
+ * @property {string} name
+ * @property {string} type
+ * @property {string} path
+ * @property {InputDataEndpoint[]} children
+ * @property {string} nodeTypeName = SpinalBmsEndpointGroup.nodeTypeName || 'BmsEndpointGroup'
  */
-function genUID(constructor) {
-    const res = `${constructor}-${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}-${Date.now().toString(16)}`;
-    return res;
+export interface InputDataEndpointGroup {
+  id: string;
+  name: string;
+  type: string;
+  path: string;
+  children: (InputDataEndpoint)[];
+  nodeTypeName: string;
 }
-exports.genUID = genUID;
-//# sourceMappingURL=genUID.js.map

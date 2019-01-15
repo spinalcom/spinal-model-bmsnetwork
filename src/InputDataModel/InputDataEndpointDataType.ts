@@ -1,4 +1,3 @@
-"use strict";
 /*
  * Copyright 2018 SpinalCom - www.spinalcom.com
  *
@@ -22,17 +21,30 @@
  * with this file. If not, see
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-}
+
 /**
- * @param {string} constructor
- * @returns {string}
+ * @enum {number}
  */
-function genUID(constructor) {
-    const res = `${constructor}-${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}-${Date.now().toString(16)}`;
-    return res;
+export enum InputDataEndpointDataType {
+  Null,
+  Boolean,
+  Unsigned,
+  Unsigned8,
+  Unsigned16,
+  Unsigned32,
+  Integer,
+  Integer16,
+  Real,
+  Double,
+  OctetString,
+  CharacterString,
+  BitString,
+  Enumerated,
+  Date,
+  Time,
+  Array,
+  DateTime,
+  Long,
+  String,
+  Duration,
 }
-exports.genUID = genUID;
-//# sourceMappingURL=genUID.js.map

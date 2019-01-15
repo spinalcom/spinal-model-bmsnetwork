@@ -25,7 +25,29 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const spinal_core_connectorjs_type_1 = require("spinal-core-connectorjs_type");
 const genUID_1 = require("../Utils/genUID");
+/**
+ * @property {spinal.Str} id
+ * @property {spinal.Str} path
+ * @property {spinal.Str | spinal.Val} currentValue
+ * @property {spinal.Str} unit
+ * @property {spinal.Str} type
+ * @property {spinal.Str} dataType
+ * @export
+ * @class SpinalBmsEndpoint
+ * @extends {Model}
+ */
 class SpinalBmsEndpoint extends spinal_core_connectorjs_type_1.Model {
+    /**
+     *Creates an instance of SpinalBmsEndpoint.
+     * @param {string} [name='']
+     * @param {string} [path='']
+     * @param {(string|number)} [currentValue='']
+     * @param {string} [unit='']
+     * @param {string} [dataType='']
+     * @param {string} [type='']
+     * @param {string} [id=genUID('SpinalBmsEndpoint')]
+     * @memberof SpinalBmsEndpoint
+     */
     constructor(name = '', path = '', currentValue = '', unit = '', dataType = '', type = '', id = genUID_1.genUID('SpinalBmsEndpoint')) {
         super();
         this.add_attr({
@@ -39,7 +61,17 @@ class SpinalBmsEndpoint extends spinal_core_connectorjs_type_1.Model {
         });
     }
 }
+/**
+ * @static
+ * @type {string}
+ * @memberof SpinalBmsEndpoint
+ */
 SpinalBmsEndpoint.relationName = 'hasBmsEndpoint';
+/**
+ * @static
+ * @type {string}
+ * @memberof SpinalBmsEndpoint
+ */
 SpinalBmsEndpoint.nodeTypeName = 'BmsEndpoint';
 exports.SpinalBmsEndpoint = SpinalBmsEndpoint;
 spinal_core_connectorjs_type_1.spinalCore.register_models(SpinalBmsEndpoint);

@@ -1,4 +1,3 @@
-"use strict";
 /*
  * Copyright 2018 SpinalCom - www.spinalcom.com
  *
@@ -22,17 +21,17 @@
  * with this file. If not, see
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-}
-/**
- * @param {string} constructor
- * @returns {string}
- */
-function genUID(constructor) {
-    const res = `${constructor}-${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}-${Date.now().toString(16)}`;
-    return res;
-}
-exports.genUID = genUID;
-//# sourceMappingURL=genUID.js.map
+
+import { InputDataDevice } from './InputDataDevice';
+import { InputDataEndpoint } from './InputDataEndpoint';
+import { InputDataEndpointDataType } from './InputDataEndpointDataType';
+import { InputDataEndpointType } from './InputDataEndpointType';
+import { InputDataEndpointGroup } from './InputDataEndpointGroup';
+
+export {
+  InputDataDevice,
+  InputDataEndpoint,
+  InputDataEndpointType,
+  InputDataEndpointDataType,
+  InputDataEndpointGroup,
+};

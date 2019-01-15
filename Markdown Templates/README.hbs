@@ -1,0 +1,77 @@
+<!-- DO NOT EDIT README.md (It will be overridden by README.hbs) -->
+
+# spinal-model-bmsnetwork
+
+Model + service using the spinal-model-graph to do operation for Network representation.
+
+<!-- START doctoc -->
+<!-- END doctoc -->
+
+# Description
+
+Model + service using the spinal-model-graph to do operation for Network representation.
+
+
+# API
+
+## Interface
+
+<a name="InputDataDevice"></a>
+
+### InputDataDevice
+**Kind**: interface
+
+| Param | Type | Value | Comment |
+| --- | --- | | |
+| id | <code>string</code> | | 
+| name | <code>string</code> | | 
+| type | <code>string</code> | | 
+| path | <code>string</code> | | 
+| children | <code>(InputDataEndpoint \| InputDataEndpointGroup \| InputDataDevice)[]</code> | | 
+| nodeTypeName | <code>string</code> | <code>BmsDevice</code> | should equal to <code>SpinalBmsDevice.nodeTypeName</code> |
+
+<a name="InputDataEndpointGroup"></a>
+
+### InputDataEndpointGroup
+**Kind**: interface
+
+| Param | Type | Value | Comment |
+| --- | --- | --- | --- |
+| id | <code>string</code> | | 
+| name | <code>string</code> | | 
+| type | <code>string</code> | | 
+| path | <code>string</code> | | 
+| children | <code>InputDataEndpoint[]</code> | | 
+| nodeTypeName | <code>string</code> | <code>BmsEndpointGroup</code> | should equal to <code>SpinalBmsEndpointGroup.nodeTypeName</code> |
+
+<a name="InputDataDevice"></a>
+
+### InputDataDevice
+**Kind**: interface
+
+| Param | Type | Value | Comment |
+| --- | --- | --- | --- |
+| id | <code>string</code> | | 
+| name | <code>string</code> | | 
+| path | <code>string</code> | | 
+| currentValue | <code>string</code> | | 
+| unit | <code>(InputDataEndpoint \| InputDataEndpointGroup \| InputDataDevice)[]</code> | | 
+| dataType | <code>InputDataEndpointDataType</code> | | 
+| type | <code>InputDataEndpointType</code> | | 
+| nodeTypeName | <code>string</code> | <code>BmsEndpoint</code> | should equal to <code>SpinalBmsEndpoint.nodeTypeName</code> |
+
+<a name="ConfigService"></a>
+
+### ConfigService
+**Kind**: interface
+
+| Param | Type | Value | Comment |
+| --- | --- | --- | --- |
+| contextName | <code>string</code> | | 
+| contextType | <code>string</code> | | 
+| networkType | <code>string</code> | | 
+| networkName | <code>string</code> | | 
+
+
+
+{{>main~}}

@@ -25,8 +25,29 @@
 import { Model, spinalCore } from 'spinal-core-connectorjs_type';
 import { genUID } from '../Utils/genUID';
 
-class SpinalBmsEndpoint extends Model {
+/**
+ * @property {spinal.Str} id
+ * @property {spinal.Str} path
+ * @property {spinal.Str | spinal.Val} currentValue
+ * @property {spinal.Str} unit
+ * @property {spinal.Str} type
+ * @property {spinal.Str} dataType
+ * @export
+ * @class SpinalBmsEndpoint
+ * @extends {Model}
+ */
+export class SpinalBmsEndpoint extends Model {
+  /**
+   * @static
+   * @type {string}
+   * @memberof SpinalBmsEndpoint
+   */
   public static relationName: string = 'hasBmsEndpoint';
+  /**
+   * @static
+   * @type {string}
+   * @memberof SpinalBmsEndpoint
+   */
   public static nodeTypeName: string = 'BmsEndpoint';
 
   public id: spinal.Str;
@@ -36,6 +57,17 @@ class SpinalBmsEndpoint extends Model {
   public type: spinal.Str;
   public dataType: spinal.Str;
 
+  /**
+   *Creates an instance of SpinalBmsEndpoint.
+   * @param {string} [name='']
+   * @param {string} [path='']
+   * @param {(string|number)} [currentValue='']
+   * @param {string} [unit='']
+   * @param {string} [dataType='']
+   * @param {string} [type='']
+   * @param {string} [id=genUID('SpinalBmsEndpoint')]
+   * @memberof SpinalBmsEndpoint
+   */
   constructor(name: string = '', path: string = '', currentValue: string|number = '',
               unit: string = '', dataType: string = '', type: string = '',
               id: string = genUID('SpinalBmsEndpoint')) {
@@ -55,4 +87,3 @@ class SpinalBmsEndpoint extends Model {
 spinalCore.register_models(SpinalBmsEndpoint);
 
 export default SpinalBmsEndpoint;
-export { SpinalBmsEndpoint };

@@ -1,1 +1,1 @@
-require('./dist/SpinalBms');
+require('./dist/NetworkService');

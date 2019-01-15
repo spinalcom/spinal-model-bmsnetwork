@@ -25,13 +25,39 @@
 import { Model, spinalCore } from 'spinal-core-connectorjs_type';
 import { genUID } from '../Utils/genUID';
 
-class SpinalBmsNetwork extends Model {
+/**
+ *
+ * @property {spinal.Str} name
+ * @property {spinal.Str} type
+ * @property {spinal.Str} id
+ * @export
+ * @class SpinalBmsNetwork
+ * @extends {Model}
+ */
+export class SpinalBmsNetwork extends Model {
+  /**
+   * @static
+   * @type {string}
+   * @memberof SpinalBmsNetwork
+   */
   public static relationName: string = 'hasBmsNetwork';
+  /**
+   * @static
+   * @type {string}
+   * @memberof SpinalBmsNetwork
+   */
   public static nodeTypeName: string = 'BmsNetwork';
 
   public id: spinal.Str;
   public name: spinal.Str;
 
+  /**
+   *Creates an instance of SpinalBmsNetwork.
+   * @param {string} [name='']
+   * @param {string} [type='']
+   * @param {string} [id=genUID('SpinalBmsNetwork')]
+   * @memberof SpinalBmsNetwork
+   */
   constructor(
     name: string = '',
     type: string = '',
@@ -44,4 +70,3 @@ class SpinalBmsNetwork extends Model {
 spinalCore.register_models(SpinalBmsNetwork);
 
 export default SpinalBmsNetwork;
-export { SpinalBmsNetwork };

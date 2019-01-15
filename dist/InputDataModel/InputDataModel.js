@@ -23,16 +23,8 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-}
-/**
- * @param {string} constructor
- * @returns {string}
- */
-function genUID(constructor) {
-    const res = `${constructor}-${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}-${Date.now().toString(16)}`;
-    return res;
-}
-exports.genUID = genUID;
-//# sourceMappingURL=genUID.js.map
+const InputDataEndpointDataType_1 = require("./InputDataEndpointDataType");
+exports.InputDataEndpointDataType = InputDataEndpointDataType_1.InputDataEndpointDataType;
+const InputDataEndpointType_1 = require("./InputDataEndpointType");
+exports.InputDataEndpointType = InputDataEndpointType_1.InputDataEndpointType;
+//# sourceMappingURL=InputDataModel.js.map

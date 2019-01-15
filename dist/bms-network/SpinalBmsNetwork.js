@@ -25,13 +25,39 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const spinal_core_connectorjs_type_1 = require("spinal-core-connectorjs_type");
 const genUID_1 = require("../Utils/genUID");
+/**
+ *
+ * @property {spinal.Str} name
+ * @property {spinal.Str} type
+ * @property {spinal.Str} id
+ * @export
+ * @class SpinalBmsNetwork
+ * @extends {Model}
+ */
 class SpinalBmsNetwork extends spinal_core_connectorjs_type_1.Model {
+    /**
+     *Creates an instance of SpinalBmsNetwork.
+     * @param {string} [name='']
+     * @param {string} [type='']
+     * @param {string} [id=genUID('SpinalBmsNetwork')]
+     * @memberof SpinalBmsNetwork
+     */
     constructor(name = '', type = '', id = genUID_1.genUID('SpinalBmsNetwork')) {
         super();
         this.add_attr({ id, name, type });
     }
 }
+/**
+ * @static
+ * @type {string}
+ * @memberof SpinalBmsNetwork
+ */
 SpinalBmsNetwork.relationName = 'hasBmsNetwork';
+/**
+ * @static
+ * @type {string}
+ * @memberof SpinalBmsNetwork
+ */
 SpinalBmsNetwork.nodeTypeName = 'BmsNetwork';
 exports.SpinalBmsNetwork = SpinalBmsNetwork;
 spinal_core_connectorjs_type_1.spinalCore.register_models(SpinalBmsNetwork);

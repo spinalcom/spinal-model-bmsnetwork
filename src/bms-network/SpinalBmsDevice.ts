@@ -25,8 +25,27 @@
 import { Model, spinalCore } from 'spinal-core-connectorjs_type';
 import { genUID } from '../Utils/genUID';
 
-class SpinalBmsDevice extends Model {
+/**
+ * @property {spinal.Str} id;
+ * @property {spinal.Str} name;
+ * @property {spinal.Str} type;
+ * @property {spinal.Str} path;
+ * @export
+ * @class SpinalBmsDevice
+ * @extends {Model}
+ */
+export class SpinalBmsDevice extends Model {
+  /**
+   * @static
+   * @type {string}
+   * @memberof SpinalBmsDevice
+   */
   public static relationName: string = 'hasBmsDevice';
+  /**
+   * @static
+   * @type {string}
+   * @memberof SpinalBmsDevice
+   */
   public static nodeTypeName: string = 'BmsDevice';
 
   public id: spinal.Str;
@@ -34,6 +53,14 @@ class SpinalBmsDevice extends Model {
   public type: spinal.Str;
   public path: spinal.Str;
 
+  /**
+   *Creates an instance of SpinalBmsDevice.
+   * @param {string} [name='']
+   * @param {string} [type='']
+   * @param {string} [path='']
+   * @param {string} [id=genUID('SpinalBmsDevice')]
+   * @memberof SpinalBmsDevice
+   */
   constructor(name: string= '', type: string= '', path: string= '',
               id: string = genUID('SpinalBmsDevice'))  {
     super();
@@ -48,4 +75,3 @@ class SpinalBmsDevice extends Model {
 spinalCore.register_models(SpinalBmsDevice);
 
 export default SpinalBmsDevice;
-export { SpinalBmsDevice };

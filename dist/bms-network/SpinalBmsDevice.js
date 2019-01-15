@@ -25,7 +25,24 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const spinal_core_connectorjs_type_1 = require("spinal-core-connectorjs_type");
 const genUID_1 = require("../Utils/genUID");
+/**
+ * @property {spinal.Str} id;
+ * @property {spinal.Str} name;
+ * @property {spinal.Str} type;
+ * @property {spinal.Str} path;
+ * @export
+ * @class SpinalBmsDevice
+ * @extends {Model}
+ */
 class SpinalBmsDevice extends spinal_core_connectorjs_type_1.Model {
+    /**
+     *Creates an instance of SpinalBmsDevice.
+     * @param {string} [name='']
+     * @param {string} [type='']
+     * @param {string} [path='']
+     * @param {string} [id=genUID('SpinalBmsDevice')]
+     * @memberof SpinalBmsDevice
+     */
     constructor(name = '', type = '', path = '', id = genUID_1.genUID('SpinalBmsDevice')) {
         super();
         this.add_attr({
@@ -36,7 +53,17 @@ class SpinalBmsDevice extends spinal_core_connectorjs_type_1.Model {
         });
     }
 }
+/**
+ * @static
+ * @type {string}
+ * @memberof SpinalBmsDevice
+ */
 SpinalBmsDevice.relationName = 'hasBmsDevice';
+/**
+ * @static
+ * @type {string}
+ * @memberof SpinalBmsDevice
+ */
 SpinalBmsDevice.nodeTypeName = 'BmsDevice';
 exports.SpinalBmsDevice = SpinalBmsDevice;
 spinal_core_connectorjs_type_1.spinalCore.register_models(SpinalBmsDevice);
