@@ -31,21 +31,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * with this file. If not, see
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
-const spinal_env_viewer_graph_service_1 = require("spinal-env-viewer-graph-service");
-const InputDataModel_1 = require("./InputDataModel/InputDataModel");
-exports.InputDataEndpointType = InputDataModel_1.InputDataEndpointType;
-exports.InputDataEndpointDataType = InputDataModel_1.InputDataEndpointDataType;
-const SpinalBms_1 = require("./SpinalBms");
-exports.SpinalBmsDevice = SpinalBms_1.SpinalBmsDevice;
-exports.SpinalBmsNetwork = SpinalBms_1.SpinalBmsNetwork;
-exports.SpinalBmsEndpoint = SpinalBms_1.SpinalBmsEndpoint;
-exports.SpinalBmsEndpointGroup = SpinalBms_1.SpinalBmsEndpointGroup;
 const spinal_core_connectorjs_type_1 = require("spinal-core-connectorjs_type");
+const spinal_env_viewer_graph_service_1 = require("spinal-env-viewer-graph-service");
 const spinal_model_timeseries_1 = require("spinal-model-timeseries");
 exports.SpinalServiceTimeseries = spinal_model_timeseries_1.SpinalServiceTimeseries;
 exports.SpinalTimeSeries = spinal_model_timeseries_1.SpinalTimeSeries;
 exports.SpinalTimeSeriesArchive = spinal_model_timeseries_1.SpinalTimeSeriesArchive;
 exports.SpinalTimeSeriesArchiveDay = spinal_model_timeseries_1.SpinalTimeSeriesArchiveDay;
+const InputDataModel_1 = require("./InputDataModel/InputDataModel");
+exports.InputDataEndpointDataType = InputDataModel_1.InputDataEndpointDataType;
+exports.InputDataEndpointType = InputDataModel_1.InputDataEndpointType;
+const SpinalBms_1 = require("./SpinalBms");
+exports.SpinalBmsDevice = SpinalBms_1.SpinalBmsDevice;
+exports.SpinalBmsEndpoint = SpinalBms_1.SpinalBmsEndpoint;
+exports.SpinalBmsEndpointGroup = SpinalBms_1.SpinalBmsEndpointGroup;
+exports.SpinalBmsNetwork = SpinalBms_1.SpinalBmsNetwork;
 /**
  * @export
  * @class NetworkService
@@ -71,8 +71,7 @@ class NetworkService {
             this.context = spinal_env_viewer_graph_service_1.SpinalGraphService.getContext(configService.contextName);
             if (this.context === undefined) {
                 if (autoCreate === true) {
-                    this.context =
-                        yield spinal_env_viewer_graph_service_1.SpinalGraphService.addContext(configService.contextName, configService.contextType, new spinal_core_connectorjs_type_1.Model());
+                    this.context = yield spinal_env_viewer_graph_service_1.SpinalGraphService.addContext(configService.contextName, configService.contextType, new spinal_core_connectorjs_type_1.Model());
                 }
                 else {
                     throw Error(`Context named "${configService.contextName}" is not found in the graph.`);
@@ -89,7 +88,9 @@ class NetworkService {
                 }
             }
             if (childFoundId === '') {
-                childFoundId = yield this.createNewBmsNetwork(this.contextId, configService.networkType, configService.networkName).then(res => res.id.get());
+                childFoundId = yield this
+                    .createNewBmsNetwork(this.contextId, configService.networkType, configService.networkName)
+                    .then(res => res.id.get());
             }
             this.networkId = childFoundId;
             return { contextId: this.contextId, networkId: childFoundId };
@@ -126,7 +127,11 @@ class NetworkService {
     createNewBmsDevice(parentId, obj) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = new SpinalBms_1.SpinalBmsDevice(obj.name, obj.type, obj.path, obj.id);
-            const tmpInfo = { type: SpinalBms_1.SpinalBmsDevice.nodeTypeName, name: obj.name, idNetwork: obj.id };
+            const tmpInfo = {
+                type: SpinalBms_1.SpinalBmsDevice.nodeTypeName,
+                name: obj.name,
+                idNetwork: obj.id,
+            };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsDevice.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
@@ -141,7 +146,11 @@ class NetworkService {
     createNewBmsEndpointGroup(parentId, obj) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = new SpinalBms_1.SpinalBmsEndpointGroup(obj.name, obj.type, obj.path, obj.id);
-            const tmpInfo = { type: SpinalBms_1.SpinalBmsEndpointGroup.nodeTypeName, name: obj.name, idNetwork: obj.id };
+            const tmpInfo = {
+                type: SpinalBms_1.SpinalBmsEndpointGroup.nodeTypeName,
+                name: obj.name,
+                idNetwork: obj.id,
+            };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpointGroup.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
@@ -156,7 +165,11 @@ class NetworkService {
     createNewBmsEndpoint(parentId, obj) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = new SpinalBms_1.SpinalBmsEndpoint(obj.name, obj.path, obj.currentValue, obj.unit, InputDataModel_1.InputDataEndpointDataType[obj.dataType], InputDataModel_1.InputDataEndpointType[obj.type], obj.id);
-            const tmpInfo = { type: SpinalBms_1.SpinalBmsEndpoint.nodeTypeName, name: obj.name, idNetwork: obj.id };
+            const tmpInfo = {
+                type: SpinalBms_1.SpinalBmsEndpoint.nodeTypeName,
+                name: obj.name,
+                idNetwork: obj.id,
+            };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpoint.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
@@ -171,7 +184,8 @@ class NetworkService {
         return __awaiter(this, void 0, void 0, function* () {
             const contextChildren = yield spinal_env_viewer_graph_service_1.SpinalGraphService.getChildrenInContext(this.networkId, this.contextId);
             for (const child of contextChildren) {
-                if (typeof child.idNetwork !== 'undefined' && child.idNetwork.get() === obj.id) {
+                if (typeof child.idNetwork !== 'undefined' &&
+                    child.idNetwork.get() === obj.id) {
                     return this.updateModel(child, obj);
                 }
             }
@@ -222,21 +236,25 @@ class NetworkService {
             for (const item of notPresent) {
                 switch (item.nodeTypeName) {
                     case SpinalBms_1.SpinalBmsDevice.nodeTypeName:
-                        prom = this.createNewBmsDevice(node.id.get(), item).then((child) => {
+                        prom = this.createNewBmsDevice(node.id.get(), (item))
+                            .then((child) => {
                             return this.updateModel(child, item);
                         });
                         promises.push(prom);
                         break;
                     case SpinalBms_1.SpinalBmsEndpointGroup.nodeTypeName:
-                        prom = this.createNewBmsEndpointGroup(node.id.get(), item).then((child) => {
+                        prom = this.createNewBmsEndpointGroup(node.id.get(), item)
+                            .then((child) => {
                             return this.updateModel(child, item);
                         });
                         promises.push(prom);
                         break;
                     case SpinalBms_1.SpinalBmsEndpoint.nodeTypeName:
-                        prom = this.createNewBmsEndpoint(node.id.get(), item).then((child) => {
-                            return this.updateEndpoint(child, item);
-                        });
+                        prom =
+                            this.createNewBmsEndpoint(node.id.get(), (item))
+                                .then((child) => {
+                                return this.updateEndpoint(child, item);
+                            });
                         promises.push(prom);
                         break;
                     default:
@@ -256,7 +274,8 @@ class NetworkService {
         return __awaiter(this, void 0, void 0, function* () {
             const element = yield node.element.load();
             element.currentValue.set(reference.currentValue);
-            if (typeof reference.currentValue === 'number' || typeof reference.currentValue === 'boolean') {
+            if (typeof reference.currentValue === 'number' ||
+                typeof reference.currentValue === 'boolean') {
                 yield this.spinalServiceTimeseries.pushFromEndpoint(node.id.get(), reference.currentValue);
             }
         });
@@ -290,7 +309,12 @@ class NetworkService {
                 }
                 return false;
             });
-            return childrenContext.map(element => element.id.get());
+            return childrenContext.map((element) => {
+                // hack, call private method while 'find' is not in service
+                const graphs = spinal_env_viewer_graph_service_1.SpinalGraphService;
+                graphs._addNode(element);
+                return element.getId().get();
+            });
         });
     }
     /**
@@ -327,7 +351,7 @@ class NetworkService {
     setEndpointValue(idEndpoint, value, date = null) {
         return __awaiter(this, void 0, void 0, function* () {
             const node = spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(idEndpoint);
-            const element = yield node.element.load();
+            const element = (yield node.element.load());
             element.currentValue.set(value);
             if (typeof value === 'number' || typeof value === 'boolean') {
                 if (date === null) {

@@ -1,7 +1,7 @@
-import { InputDataDevice, InputDataEndpoint, InputDataEndpointGroup, InputDataEndpointType, InputDataEndpointDataType } from './InputDataModel/InputDataModel';
-import { SpinalBmsDevice, SpinalBmsNetwork, SpinalBmsEndpoint, SpinalBmsEndpointGroup } from './SpinalBms';
+import { SpinalDateValue, SpinalDateValueArray, SpinalServiceTimeseries, SpinalTimeSeries, SpinalTimeSeriesArchive, SpinalTimeSeriesArchiveDay } from 'spinal-model-timeseries';
+import { InputDataDevice, InputDataEndpoint, InputDataEndpointDataType, InputDataEndpointGroup, InputDataEndpointType } from './InputDataModel/InputDataModel';
+import { SpinalBmsDevice, SpinalBmsEndpoint, SpinalBmsEndpointGroup, SpinalBmsNetwork } from './SpinalBms';
 import { ConfigService } from './Utils/ConfigService';
-import { SpinalServiceTimeseries, SpinalTimeSeries, SpinalTimeSeriesArchive, SpinalTimeSeriesArchiveDay, SpinalDateValue, SpinalDateValueArray } from 'spinal-model-timeseries';
 /**
  * @export
  * @class NetworkService
