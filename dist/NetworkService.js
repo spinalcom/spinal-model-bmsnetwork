@@ -61,16 +61,22 @@ class NetworkService {
     /**
      * @param {spinal.Model} forgeFile
      * @param {ConfigService} configService
+     * @param {boolean} [autoCreate=true]
      * @returns {Promise<{contextId:string, networkId: string}>}
      * @memberof NetworkService
      */
-    init(forgeFile, configService) {
+    init(forgeFile, configService, autoCreate = true) {
         return __awaiter(this, void 0, void 0, function* () {
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.setGraphFromForgeFile(forgeFile);
             this.context = spinal_env_viewer_graph_service_1.SpinalGraphService.getContext(configService.contextName);
             if (this.context === undefined) {
-                this.context =
-                    yield spinal_env_viewer_graph_service_1.SpinalGraphService.addContext(configService.contextName, configService.contextType, new spinal_core_connectorjs_type_1.Model());
+                if (autoCreate === true) {
+                    this.context =
+                        yield spinal_env_viewer_graph_service_1.SpinalGraphService.addContext(configService.contextName, configService.contextType, new spinal_core_connectorjs_type_1.Model());
+                }
+                else {
+                    throw Error(`Context named "${configService.contextName}" is not found in the graph.`);
+                }
             }
             this.contextId = this.context.getId().get();
             const childrenContext = yield spinal_env_viewer_graph_service_1.SpinalGraphService.getChildrenInContext(this.contextId, this.contextId);

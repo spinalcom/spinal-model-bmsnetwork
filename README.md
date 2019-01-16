@@ -30,7 +30,7 @@ Model + service using the spinal-model-graph to do operation for Network represe
     - [SpinalBmsNetwork.SpinalBmsNetwork](#spinalbmsnetworkspinalbmsnetwork)
       - [new SpinalBmsNetwork([name], [type], [id])](#new-spinalbmsnetworkname-type-id)
   - [NetworkService](#networkservice)
-    - [networkService.init(forgeFile, configService) ⇒ <code>Promise.&lt;{contextId:string, networkId: string}&gt;</code>](#networkserviceinitforgefile-configservice-%E2%87%92-codepromiseltcontextidstring-networkid-stringgtcode)
+    - [networkService.init(forgeFile, configService, [autoCreate]) ⇒ <code>Promise.&lt;{contextId:string, networkId: string}&gt;</code>](#networkserviceinitforgefile-configservice-autocreate-%E2%87%92-codepromiseltcontextidstring-networkid-stringgtcode)
     - [networkService.createNewBmsNetwork(parentId, typeName, networkName) ⇒ <code>Promise.&lt;any&gt;</code>](#networkservicecreatenewbmsnetworkparentid-typename-networkname-%E2%87%92-codepromiseltanygtcode)
     - [networkService.createNewBmsDevice(parentId, obj) ⇒ <code>Promise.&lt;any&gt;</code>](#networkservicecreatenewbmsdeviceparentid-obj-%E2%87%92-codepromiseltanygtcode)
     - [networkService.createNewBmsEndpointGroup(parentId, obj) ⇒ <code>Promise.&lt;any&gt;</code>](#networkservicecreatenewbmsendpointgroupparentid-obj-%E2%87%92-codepromiseltanygtcode)
@@ -299,7 +299,7 @@ Model + service using the spinal-model-graph to do operation for Network represe
 
 * [NetworkService](#NetworkService)
     * _instance_
-        * [.init(forgeFile, configService)](#NetworkService+init) ⇒ <code>Promise.&lt;{contextId:string, networkId: string}&gt;</code>
+        * [.init(forgeFile, configService, [autoCreate])](#NetworkService+init) ⇒ <code>Promise.&lt;{contextId:string, networkId: string}&gt;</code>
         * [.createNewBmsNetwork(parentId, typeName, networkName)](#NetworkService+createNewBmsNetwork) ⇒ <code>Promise.&lt;any&gt;</code>
         * [.createNewBmsDevice(parentId, obj)](#NetworkService+createNewBmsDevice) ⇒ <code>Promise.&lt;any&gt;</code>
         * [.createNewBmsEndpointGroup(parentId, obj)](#NetworkService+createNewBmsEndpointGroup) ⇒ <code>Promise.&lt;any&gt;</code>
@@ -318,13 +318,14 @@ Model + service using the spinal-model-graph to do operation for Network represe
 
 <a name="NetworkService+init"></a>
 
-### networkService.init(forgeFile, configService) ⇒ <code>Promise.&lt;{contextId:string, networkId: string}&gt;</code>
+### networkService.init(forgeFile, configService, [autoCreate]) ⇒ <code>Promise.&lt;{contextId:string, networkId: string}&gt;</code>
 **Kind**: instance method of [<code>NetworkService</code>](#NetworkService)  
 
-| Param | Type |
-| --- | --- |
-| forgeFile | <code>spinal.Model</code> | 
-| configService | <code>ConfigService</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| forgeFile | <code>spinal.Model</code> |  | 
+| configService | <code>ConfigService</code> |  | 
+| [autoCreate] | <code>boolean</code> | <code>true</code> | 
 
 <a name="NetworkService+createNewBmsNetwork"></a>
 

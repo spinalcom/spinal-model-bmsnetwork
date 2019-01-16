@@ -72,20 +72,26 @@ export class NetworkService {
   /**
    * @param {spinal.Model} forgeFile
    * @param {ConfigService} configService
+   * @param {boolean} [autoCreate=true]
    * @returns {Promise<{contextId:string, networkId: string}>}
    * @memberof NetworkService
    */
-  public async init(forgeFile: spinal.Model, configService: ConfigService)
+  public async init(forgeFile: spinal.Model, configService: ConfigService,
+                    autoCreate: boolean = true)
   : Promise<{contextId:string, networkId: string}> {
     await SpinalGraphService.setGraphFromForgeFile(forgeFile);
 
     this.context = SpinalGraphService.getContext(configService.contextName);
     if (this.context === undefined) {
-      this.context =
-        await SpinalGraphService.addContext(configService.contextName,
-                                            configService.contextType,
-                                            new Model(),
-          );
+      if (autoCreate === true) {
+        this.context =
+          await SpinalGraphService.addContext(configService.contextName,
+                                              configService.contextType,
+                                              new Model(),
+            );
+      } else {
+        throw Error(`Context named "${configService.contextName}" is not found in the graph.`);
+      }
     }
     this.contextId = this.context.getId().get();
 

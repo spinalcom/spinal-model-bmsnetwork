@@ -19,10 +19,11 @@ export declare class NetworkService {
     /**
      * @param {spinal.Model} forgeFile
      * @param {ConfigService} configService
+     * @param {boolean} [autoCreate=true]
      * @returns {Promise<{contextId:string, networkId: string}>}
      * @memberof NetworkService
      */
-    init(forgeFile: spinal.Model, configService: ConfigService): Promise<{
+    init(forgeFile: spinal.Model, configService: ConfigService, autoCreate?: boolean): Promise<{
         contextId: string;
         networkId: string;
     }>;
