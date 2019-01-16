@@ -38,7 +38,7 @@ Model + service using the spinal-model-graph to do operation for Network represe
     - [networkService.updateData(obj) ⇒ <code>Promise.&lt;void&gt;</code>](#networkserviceupdatedataobj-%E2%87%92-codepromiseltvoidgtcode)
     - [networkService.updateEndpoint(node, reference) ⇒ <code>Promise.&lt;void&gt;</code>](#networkserviceupdateendpointnode-reference-%E2%87%92-codepromiseltvoidgtcode)
     - [networkService.getNetworks() ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>](#networkservicegetnetworks-%E2%87%92-codepromiseltarrayltstringgtgtcode)
-    - [networkService.getDevices(idNetwork) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>](#networkservicegetdevicesidnetwork-%E2%87%92-codepromiseltarrayltstringgtgtcode)
+    - [networkService.getEndpoint(idDevice) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>](#networkservicegetendpointiddevice-%E2%87%92-codepromiseltarrayltstringgtgtcode)
     - [networkService.getInfo(idNode) ⇒ <code>spinal.Model</code>](#networkservicegetinfoidnode-%E2%87%92-codespinalmodelcode)
     - [networkService.getData(idNode) ⇒ <code>Promise.&lt;spinal.Model&gt;</code>](#networkservicegetdataidnode-%E2%87%92-codepromiseltspinalmodelgtcode)
     - [networkService.getTimeseries(idEndpoint) ⇒ <code>Promise.&lt;SpinalTimeSeries&gt;</code>](#networkservicegettimeseriesidendpoint-%E2%87%92-codepromiseltspinaltimeseriesgtcode)
@@ -307,7 +307,7 @@ Model + service using the spinal-model-graph to do operation for Network represe
         * [.updateData(obj)](#NetworkService+updateData) ⇒ <code>Promise.&lt;void&gt;</code>
         * [.updateEndpoint(node, reference)](#NetworkService+updateEndpoint) ⇒ <code>Promise.&lt;void&gt;</code>
         * [.getNetworks()](#NetworkService+getNetworks) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>
-        * [.getDevices(idNetwork)](#NetworkService+getDevices) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>
+        * [.getEndpoint(idDevice)](#NetworkService+getEndpoint) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>
         * [.getInfo(idNode)](#NetworkService+getInfo) ⇒ <code>spinal.Model</code>
         * [.getData(idNode)](#NetworkService+getData) ⇒ <code>Promise.&lt;spinal.Model&gt;</code>
         * [.getTimeseries(idEndpoint)](#NetworkService+getTimeseries) ⇒ <code>Promise.&lt;SpinalTimeSeries&gt;</code>
@@ -391,14 +391,14 @@ Model + service using the spinal-model-graph to do operation for Network represe
 
 ### networkService.getNetworks() ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>
 **Kind**: instance method of [<code>NetworkService</code>](#NetworkService)  
-<a name="NetworkService+getDevices"></a>
+<a name="NetworkService+getEndpoint"></a>
 
-### networkService.getDevices(idNetwork) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>
+### networkService.getEndpoint(idDevice) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>
 **Kind**: instance method of [<code>NetworkService</code>](#NetworkService)  
 
 | Param | Type |
 | --- | --- |
-| idNetwork | <code>string</code> | 
+| idDevice | <code>string</code> | 
 
 <a name="NetworkService+getInfo"></a>
 

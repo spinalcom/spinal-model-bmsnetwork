@@ -291,20 +291,17 @@ class NetworkService {
         });
     }
     /**
-     * @param {string} idNetwork
+     * @private
+     * @param {string} idElement
+     * @param {string[]} relationNames
      * @returns {Promise<string[]>}
      * @memberof NetworkService
      */
-    getDevices(idNetwork) {
+    find(idElement, relationNames, nodeTypeName) {
         return __awaiter(this, void 0, void 0, function* () {
-            const networkNode = spinal_env_viewer_graph_service_1.SpinalGraphService.getRealNode(idNetwork);
-            const relationNames = [
-                SpinalBms_1.SpinalBmsDevice.relationName,
-                SpinalBms_1.SpinalBmsEndpointGroup.relationName,
-                SpinalBms_1.SpinalBmsEndpoint.relationName,
-            ];
-            const childrenContext = yield networkNode.find(relationNames, (node) => {
-                if (node.getType().get() === SpinalBms_1.SpinalBmsDevice.nodeTypeName) {
+            const node = spinal_env_viewer_graph_service_1.SpinalGraphService.getRealNode(idElement);
+            const childrenContext = yield node.find(relationNames, (node) => {
+                if (node.getType().get() === nodeTypeName) {
                     return true;
                 }
                 return false;
@@ -316,6 +313,26 @@ class NetworkService {
                 return element.getId().get();
             });
         });
+    }
+    /**
+     * @param {string} idDevice
+     * @returns {Promise<string[]>}
+     * @memberof NetworkService
+     */
+    getEndpoint(idDevice) {
+        const relationNames = [
+            SpinalBms_1.SpinalBmsEndpointGroup.relationName,
+            SpinalBms_1.SpinalBmsEndpoint.relationName,
+        ];
+        return this.find(idDevice, relationNames, SpinalBms_1.SpinalBmsEndpoint.nodeTypeName);
+    }
+    getDevices(idNetwork) {
+        const relationNames = [
+            SpinalBms_1.SpinalBmsDevice.relationName,
+            SpinalBms_1.SpinalBmsEndpointGroup.relationName,
+            SpinalBms_1.SpinalBmsEndpoint.relationName,
+        ];
+        return this.find(idNetwork, relationNames, SpinalBms_1.SpinalBmsDevice.nodeTypeName);
     }
     /**
      * @param {string} idNode

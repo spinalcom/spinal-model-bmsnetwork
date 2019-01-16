@@ -83,10 +83,19 @@ export declare class NetworkService {
      */
     getNetworks(): Promise<string[]>;
     /**
-     * @param {string} idNetwork
+     * @private
+     * @param {string} idElement
+     * @param {string[]} relationNames
      * @returns {Promise<string[]>}
      * @memberof NetworkService
      */
+    private find;
+    /**
+     * @param {string} idDevice
+     * @returns {Promise<string[]>}
+     * @memberof NetworkService
+     */
+    getEndpoint(idDevice: string): Promise<string[]>;
     getDevices(idNetwork: string): Promise<string[]>;
     /**
      * @param {string} idNode

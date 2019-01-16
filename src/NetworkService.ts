@@ -390,21 +390,19 @@ export class NetworkService {
   }
 
   /**
-   * @param {string} idNetwork
+   * @private
+   * @param {string} idElement
+   * @param {string[]} relationNames
    * @returns {Promise<string[]>}
    * @memberof NetworkService
    */
-  async getDevices(idNetwork: string): Promise<string[]> {
-    const networkNode = SpinalGraphService.getRealNode(idNetwork);
-    const relationNames = [
-      SpinalBmsDevice.relationName,
-      SpinalBmsEndpointGroup.relationName,
-      SpinalBmsEndpoint.relationName,
-    ];
-    const childrenContext = await networkNode.find(
+  private async find(idElement: string, relationNames: string[], nodeTypeName: string)
+    : Promise<string[]> {
+    const node = SpinalGraphService.getRealNode(idElement);
+    const childrenContext = await node.find(
         relationNames,
         (node: SpinalNode<any>) => {
-          if (node.getType().get() === SpinalBmsDevice.nodeTypeName) {
+          if (node.getType().get() === nodeTypeName) {
             return true;
           }
           return false;
@@ -416,6 +414,29 @@ export class NetworkService {
       graphs._addNode(element);
       return element.getId().get();
     });
+
+  }
+
+  /**
+   * @param {string} idDevice
+   * @returns {Promise<string[]>}
+   * @memberof NetworkService
+   */
+  getEndpoint(idDevice: string): Promise<string[]> {
+    const relationNames = [
+      SpinalBmsEndpointGroup.relationName,
+      SpinalBmsEndpoint.relationName,
+    ];
+    return this.find(idDevice, relationNames, SpinalBmsEndpoint.nodeTypeName);
+  }
+
+  getDevices(idNetwork: string): Promise<string[]> {
+    const relationNames = [
+      SpinalBmsDevice.relationName,
+      SpinalBmsEndpointGroup.relationName,
+      SpinalBmsEndpoint.relationName,
+    ];
+    return this.find(idNetwork, relationNames, SpinalBmsDevice.nodeTypeName);
   }
 
   /**
