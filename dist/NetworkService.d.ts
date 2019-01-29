@@ -58,6 +58,7 @@ export declare class NetworkService {
     createNewBmsEndpoint(parentId: string, obj: InputDataEndpoint): Promise<any>;
     /**
      * @param {InputDataDevice} obj
+     * @param {*} [date=null]
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
@@ -65,7 +66,8 @@ export declare class NetworkService {
     /**
      * @private
      * @param {*} node
-     * @param {(InputDataDevice | InputDataEndpointGroup)} reference
+     * @param {(InputDataDevice|InputDataEndpointGroup)} reference
+     * @param {*} [date=null]
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
@@ -73,6 +75,7 @@ export declare class NetworkService {
     /**
      * @param {*} node
      * @param {InputDataEndpoint} reference
+     * @param {*} [date=null]
      * @returns {Promise<void>}
      * @memberof NetworkService
      */

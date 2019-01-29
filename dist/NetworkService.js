@@ -177,6 +177,7 @@ class NetworkService {
     }
     /**
      * @param {InputDataDevice} obj
+     * @param {*} [date=null]
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
@@ -197,7 +198,8 @@ class NetworkService {
     /**
      * @private
      * @param {*} node
-     * @param {(InputDataDevice | InputDataEndpointGroup)} reference
+     * @param {(InputDataDevice|InputDataEndpointGroup)} reference
+     * @param {*} [date=null]
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
@@ -267,6 +269,7 @@ class NetworkService {
     /**
      * @param {*} node
      * @param {InputDataEndpoint} reference
+     * @param {*} [date=null]
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
@@ -374,7 +377,7 @@ class NetworkService {
                 if (date === null) {
                     return this.spinalServiceTimeseries.pushFromEndpoint(idEndpoint, value);
                 }
-                return this.spinalServiceTimeseries.insertFromEndpoint(idEndpoint, value, date);
+                return this.spinalServiceTimeseries.insertFromEndpoint(idEndpoint, value, new Date(date));
             }
         });
     }

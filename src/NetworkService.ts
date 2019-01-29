@@ -490,7 +490,7 @@ export class NetworkService {
       return this.spinalServiceTimeseries.insertFromEndpoint(
           idEndpoint,
           value,
-          date,
+          new Date(date),
       );
     }
   }
