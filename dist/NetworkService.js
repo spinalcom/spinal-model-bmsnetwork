@@ -180,17 +180,17 @@ class NetworkService {
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
-    updateData(obj) {
+    updateData(obj, date = null) {
         return __awaiter(this, void 0, void 0, function* () {
             const contextChildren = yield spinal_env_viewer_graph_service_1.SpinalGraphService.getChildrenInContext(this.networkId, this.contextId);
             for (const child of contextChildren) {
                 if (typeof child.idNetwork !== 'undefined' &&
                     child.idNetwork.get() === obj.id) {
-                    return this.updateModel(child, obj);
+                    return this.updateModel(child, obj, date);
                 }
             }
             return this.createNewBmsDevice(this.networkId, obj).then((child) => {
-                return this.updateModel(child, obj);
+                return this.updateModel(child, obj, date);
             });
         });
     }
@@ -201,7 +201,7 @@ class NetworkService {
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
-    updateModel(node, reference) {
+    updateModel(node, reference, date = null) {
         return __awaiter(this, void 0, void 0, function* () {
             const contextChildren = yield spinal_env_viewer_graph_service_1.SpinalGraphService.getChildrenInContext(node.id.get(), this.contextId);
             const notPresent = [];
@@ -212,15 +212,15 @@ class NetworkService {
                     if (child.idNetwork.get() === refChild.id) {
                         switch (child.type.get()) {
                             case SpinalBms_1.SpinalBmsDevice.nodeTypeName:
-                                promises.push(this.updateModel(child, refChild));
+                                promises.push(this.updateModel(child, refChild, date));
                                 childFound = true;
                                 break;
                             case SpinalBms_1.SpinalBmsEndpointGroup.nodeTypeName:
-                                promises.push(this.updateModel(child, refChild));
+                                promises.push(this.updateModel(child, refChild, date));
                                 childFound = true;
                                 break;
                             case SpinalBms_1.SpinalBmsEndpoint.nodeTypeName:
-                                promises.push(this.updateEndpoint(child, refChild));
+                                promises.push(this.updateEndpoint(child, refChild, date));
                                 childFound = true;
                                 break;
                             default:
@@ -238,14 +238,14 @@ class NetworkService {
                     case SpinalBms_1.SpinalBmsDevice.nodeTypeName:
                         prom = this.createNewBmsDevice(node.id.get(), (item))
                             .then((child) => {
-                            return this.updateModel(child, item);
+                            return this.updateModel(child, item, date);
                         });
                         promises.push(prom);
                         break;
                     case SpinalBms_1.SpinalBmsEndpointGroup.nodeTypeName:
                         prom = this.createNewBmsEndpointGroup(node.id.get(), item)
                             .then((child) => {
-                            return this.updateModel(child, item);
+                            return this.updateModel(child, item, date);
                         });
                         promises.push(prom);
                         break;
@@ -253,7 +253,7 @@ class NetworkService {
                         prom =
                             this.createNewBmsEndpoint(node.id.get(), (item))
                                 .then((child) => {
-                                return this.updateEndpoint(child, item);
+                                return this.updateEndpoint(child, item, date);
                             });
                         promises.push(prom);
                         break;
@@ -270,13 +270,13 @@ class NetworkService {
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
-    updateEndpoint(node, reference) {
+    updateEndpoint(node, reference, date = null) {
         return __awaiter(this, void 0, void 0, function* () {
             const element = yield node.element.load();
             element.currentValue.set(reference.currentValue);
             if (typeof reference.currentValue === 'number' ||
                 typeof reference.currentValue === 'boolean') {
-                yield this.spinalServiceTimeseries.pushFromEndpoint(node.id.get(), reference.currentValue);
+                yield this.setEndpointValue(node.id.get(), reference.currentValue, date);
             }
         });
     }

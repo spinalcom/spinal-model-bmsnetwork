@@ -61,7 +61,7 @@ export declare class NetworkService {
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
-    updateData(obj: InputDataDevice): Promise<void>;
+    updateData(obj: InputDataDevice, date?: any): Promise<void>;
     /**
      * @private
      * @param {*} node
@@ -76,7 +76,7 @@ export declare class NetworkService {
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
-    updateEndpoint(node: any, reference: InputDataEndpoint): Promise<void>;
+    updateEndpoint(node: any, reference: InputDataEndpoint, date?: any): Promise<void>;
     /**
      * @returns {Promise<string[]>}
      * @memberof NetworkService

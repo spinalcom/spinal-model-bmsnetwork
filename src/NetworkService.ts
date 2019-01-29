@@ -254,10 +254,11 @@ export class NetworkService {
 
   /**
    * @param {InputDataDevice} obj
+   * @param {*} [date=null]
    * @returns {Promise<void>}
    * @memberof NetworkService
    */
-  public async updateData(obj: InputDataDevice): Promise<void> {
+  public async updateData(obj: InputDataDevice, date: any = null): Promise<void> {
     const contextChildren = await SpinalGraphService.getChildrenInContext(
         this.networkId,
         this.contextId,
@@ -266,24 +267,26 @@ export class NetworkService {
     for (const child of contextChildren) {
       if (typeof child.idNetwork !== 'undefined' &&
           child.idNetwork.get() === obj.id) {
-        return this.updateModel(child, obj);
+        return this.updateModel(child, obj, date);
       }
     }
     return this.createNewBmsDevice(this.networkId, obj).then((child) => {
-      return this.updateModel(child, <InputDataDevice>obj);
+      return this.updateModel(child, <InputDataDevice>obj, date);
     });
   }
 
   /**
    * @private
    * @param {*} node
-   * @param {(InputDataDevice | InputDataEndpointGroup)} reference
+   * @param {(InputDataDevice|InputDataEndpointGroup)} reference
+   * @param {*} [date=null]
    * @returns {Promise<void>}
    * @memberof NetworkService
    */
   private async updateModel(
       node: any,
       reference: InputDataDevice|InputDataEndpointGroup,
+      date: any = null,
       ): Promise<void> {
     const contextChildren = await SpinalGraphService.getChildrenInContext(
         node.id.get(),
@@ -298,18 +301,18 @@ export class NetworkService {
         if (child.idNetwork.get() === refChild.id) {
           switch (child.type.get()) {
             case SpinalBmsDevice.nodeTypeName:
-              promises.push(this.updateModel(child, <InputDataDevice>refChild));
+              promises.push(this.updateModel(child, <InputDataDevice>refChild, date));
               childFound = true;
               break;
             case SpinalBmsEndpointGroup.nodeTypeName:
               promises.push(
-                  this.updateModel(child, <InputDataEndpointGroup>refChild),
+                  this.updateModel(child, <InputDataEndpointGroup>refChild, date),
               );
               childFound = true;
               break;
             case SpinalBmsEndpoint.nodeTypeName:
               promises.push(
-                  this.updateEndpoint(child, <InputDataEndpoint>refChild),
+                  this.updateEndpoint(child, <InputDataEndpoint>refChild, date),
               );
               childFound = true;
               break;
@@ -329,7 +332,7 @@ export class NetworkService {
         case SpinalBmsDevice.nodeTypeName:
           prom = this.createNewBmsDevice(node.id.get(), <InputDataDevice>(item))
                      .then((child) => {
-                       return this.updateModel(child, <InputDataDevice>item);
+                       return this.updateModel(child, <InputDataDevice>item, date);
                      });
           promises.push(prom);
           break;
@@ -338,7 +341,7 @@ export class NetworkService {
                          node.id.get(), <InputDataEndpointGroup>item)
                      .then((child) => {
                        return this.updateModel(
-                           child, <InputDataEndpointGroup>item);
+                           child, <InputDataEndpointGroup>item, date);
                      });
           promises.push(prom);
           break;
@@ -347,7 +350,7 @@ export class NetworkService {
               this.createNewBmsEndpoint(
                       node.id.get(), <InputDataEndpoint>(item))
                   .then((child) => {
-                    return this.updateEndpoint(child, <InputDataEndpoint>item);
+                    return this.updateEndpoint(child, <InputDataEndpoint>item, date);
                   });
           promises.push(prom);
           break;
@@ -361,19 +364,17 @@ export class NetworkService {
   /**
    * @param {*} node
    * @param {InputDataEndpoint} reference
+   * @param {*} [date=null]
    * @returns {Promise<void>}
    * @memberof NetworkService
    */
-  async updateEndpoint(node: any, reference: InputDataEndpoint): Promise<void> {
+  async updateEndpoint(node: any, reference: InputDataEndpoint, date: any = null): Promise<void> {
     const element: SpinalBmsEndpoint = await node.element.load();
 
     element.currentValue.set(reference.currentValue);
     if (typeof reference.currentValue === 'number' ||
         typeof reference.currentValue === 'boolean') {
-      await this.spinalServiceTimeseries.pushFromEndpoint(
-          node.id.get(),
-          reference.currentValue,
-      );
+      await this.setEndpointValue(node.id.get(), reference.currentValue, date);
     }
   }
 

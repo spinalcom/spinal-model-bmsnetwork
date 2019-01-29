@@ -35,8 +35,8 @@ Model + service using the spinal-model-graph to do operation for Network represe
     - [networkService.createNewBmsDevice(parentId, obj) ⇒ <code>Promise.&lt;any&gt;</code>](#networkservicecreatenewbmsdeviceparentid-obj-%E2%87%92-codepromiseltanygtcode)
     - [networkService.createNewBmsEndpointGroup(parentId, obj) ⇒ <code>Promise.&lt;any&gt;</code>](#networkservicecreatenewbmsendpointgroupparentid-obj-%E2%87%92-codepromiseltanygtcode)
     - [networkService.createNewBmsEndpoint(parentId, obj) ⇒ <code>Promise.&lt;any&gt;</code>](#networkservicecreatenewbmsendpointparentid-obj-%E2%87%92-codepromiseltanygtcode)
-    - [networkService.updateData(obj) ⇒ <code>Promise.&lt;void&gt;</code>](#networkserviceupdatedataobj-%E2%87%92-codepromiseltvoidgtcode)
-    - [networkService.updateEndpoint(node, reference) ⇒ <code>Promise.&lt;void&gt;</code>](#networkserviceupdateendpointnode-reference-%E2%87%92-codepromiseltvoidgtcode)
+    - [networkService.updateData(obj, [date]) ⇒ <code>Promise.&lt;void&gt;</code>](#networkserviceupdatedataobj-date-%E2%87%92-codepromiseltvoidgtcode)
+    - [networkService.updateEndpoint(node, reference, [date]) ⇒ <code>Promise.&lt;void&gt;</code>](#networkserviceupdateendpointnode-reference-date-%E2%87%92-codepromiseltvoidgtcode)
     - [networkService.getNetworks() ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>](#networkservicegetnetworks-%E2%87%92-codepromiseltarrayltstringgtgtcode)
     - [networkService.getEndpoint(idDevice) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>](#networkservicegetendpointiddevice-%E2%87%92-codepromiseltarrayltstringgtgtcode)
     - [networkService.getInfo(idNode) ⇒ <code>spinal.Model</code>](#networkservicegetinfoidnode-%E2%87%92-codespinalmodelcode)
@@ -304,8 +304,8 @@ Model + service using the spinal-model-graph to do operation for Network represe
         * [.createNewBmsDevice(parentId, obj)](#NetworkService+createNewBmsDevice) ⇒ <code>Promise.&lt;any&gt;</code>
         * [.createNewBmsEndpointGroup(parentId, obj)](#NetworkService+createNewBmsEndpointGroup) ⇒ <code>Promise.&lt;any&gt;</code>
         * [.createNewBmsEndpoint(parentId, obj)](#NetworkService+createNewBmsEndpoint) ⇒ <code>Promise.&lt;any&gt;</code>
-        * [.updateData(obj)](#NetworkService+updateData) ⇒ <code>Promise.&lt;void&gt;</code>
-        * [.updateEndpoint(node, reference)](#NetworkService+updateEndpoint) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.updateData(obj, [date])](#NetworkService+updateData) ⇒ <code>Promise.&lt;void&gt;</code>
+        * [.updateEndpoint(node, reference, [date])](#NetworkService+updateEndpoint) ⇒ <code>Promise.&lt;void&gt;</code>
         * [.getNetworks()](#NetworkService+getNetworks) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>
         * [.getEndpoint(idDevice)](#NetworkService+getEndpoint) ⇒ <code>Promise.&lt;Array.&lt;string&gt;&gt;</code>
         * [.getInfo(idNode)](#NetworkService+getInfo) ⇒ <code>spinal.Model</code>
@@ -370,22 +370,24 @@ Model + service using the spinal-model-graph to do operation for Network represe
 
 <a name="NetworkService+updateData"></a>
 
-### networkService.updateData(obj) ⇒ <code>Promise.&lt;void&gt;</code>
+### networkService.updateData(obj, [date]) ⇒ <code>Promise.&lt;void&gt;</code>
 **Kind**: instance method of [<code>NetworkService</code>](#NetworkService)  
 
-| Param | Type |
-| --- | --- |
-| obj | <code>InputDataDevice</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| obj | <code>InputDataDevice</code> |  | 
+| [date] | <code>\*</code> | <code></code> | 
 
 <a name="NetworkService+updateEndpoint"></a>
 
-### networkService.updateEndpoint(node, reference) ⇒ <code>Promise.&lt;void&gt;</code>
+### networkService.updateEndpoint(node, reference, [date]) ⇒ <code>Promise.&lt;void&gt;</code>
 **Kind**: instance method of [<code>NetworkService</code>](#NetworkService)  
 
-| Param | Type |
-| --- | --- |
-| node | <code>\*</code> | 
-| reference | <code>InputDataEndpoint</code> | 
+| Param | Type | Default |
+| --- | --- | --- |
+| node | <code>\*</code> |  | 
+| reference | <code>InputDataEndpoint</code> |  | 
+| [date] | <code>\*</code> | <code></code> | 
 
 <a name="NetworkService+getNetworks"></a>
 
