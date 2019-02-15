@@ -114,7 +114,7 @@ class NetworkService {
                 idNetwork: res.id.get(),
             };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
-            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsDevice.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
+            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsNetwork.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
         });
     }

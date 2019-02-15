@@ -152,7 +152,7 @@ export class NetworkService {
         parentId,
         childId,
         this.contextId,
-        SpinalBmsDevice.relationName,
+        SpinalBmsNetwork.relationName,
         SPINAL_RELATION_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
