@@ -52,6 +52,7 @@ import {
 } from './SpinalBms';
 
 import { ConfigService } from './Utils/ConfigService';
+const throttle = require('lodash.throttle');
 
 /**
  * @export
@@ -62,13 +63,19 @@ export class NetworkService {
   private contextId: string;
   private networkId: string;
   private spinalServiceTimeseries: SpinalServiceTimeseries;
-
+  public useDelay: number;
+  public useTimeseries: boolean;
   /**
    *Creates an instance of NetworkService.
    * @memberof NetworkService
    */
-  constructor() {
+  constructor(useTimeseries = true) {
     this.spinalServiceTimeseries = new SpinalServiceTimeseries();
+    this.useTimeseries = useTimeseries;
+    this.useDelay = 0;
+  }
+  setupDelay(timeout: number): void {
+    this.useDelay = timeout;
   }
 
   /**
@@ -79,49 +86,49 @@ export class NetworkService {
    * @memberof NetworkService
    */
   public async init(
-      forgeFile: spinal.Model,
-      configService: ConfigService,
-      autoCreate: boolean = true,
-      ): Promise<{contextId: string; networkId: string}> {
+    forgeFile: spinal.Model,
+    configService: ConfigService,
+    autoCreate: boolean = true,
+  ): Promise<{ contextId: string; networkId: string }> {
     await SpinalGraphService.setGraphFromForgeFile(forgeFile);
 
     this.context = SpinalGraphService.getContext(configService.contextName);
     if (this.context === undefined) {
       if (autoCreate === true) {
         this.context = await SpinalGraphService.addContext(
-            configService.contextName,
-            configService.contextType,
-            new Model(),
+          configService.contextName,
+          configService.contextType,
+          new Model(),
         );
       } else {
         throw Error(
-            `Context named "${
-                configService.contextName}" is not found in the graph.`,
+          `Context named "${
+          configService.contextName}" is not found in the graph.`,
         );
       }
     }
     this.contextId = this.context.getId().get();
 
     const childrenContext = await SpinalGraphService.getChildrenInContext(
-        this.contextId,
-        this.contextId,
+      this.contextId,
+      this.contextId,
     );
     let childFoundId: string = '';
     for (const childContext of childrenContext) {
       if (typeof childContext.networkName !== 'undefined' &&
-          childContext.networkName.get() === configService.networkType) {
+        childContext.networkName.get() === configService.networkType) {
         childFoundId = childContext.id.get();
         break;
       }
     }
     if (childFoundId === '') {
       childFoundId = await this
-                         .createNewBmsNetwork(
-                             this.contextId,
-                             configService.networkType,
-                             configService.networkName,
-                             )
-                         .then(res => <string>res.id.get());
+        .createNewBmsNetwork(
+          this.contextId,
+          configService.networkType,
+          configService.networkName,
+        )
+        .then(res => <string>res.id.get());
     }
     this.networkId = childFoundId;
     return { contextId: this.contextId, networkId: childFoundId };
@@ -135,10 +142,10 @@ export class NetworkService {
    * @memberof NetworkService
    */
   public async createNewBmsNetwork(
-      parentId: string,
-      typeName: string,
-      networkName: string,
-      ): Promise<any> {
+    parentId: string,
+    typeName: string,
+    networkName: string,
+  ): Promise<any> {
     const res = new SpinalBmsNetwork(networkName, typeName);
     const tmpInfo = {
       networkName,
@@ -149,11 +156,11 @@ export class NetworkService {
     };
     const childId = SpinalGraphService.createNode(tmpInfo, res);
     await SpinalGraphService.addChildInContext(
-        parentId,
-        childId,
-        this.contextId,
-        SpinalBmsNetwork.relationName,
-        SPINAL_RELATION_TYPE,
+      parentId,
+      childId,
+      this.contextId,
+      SpinalBmsNetwork.relationName,
+      SPINAL_RELATION_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
   }
@@ -165,9 +172,9 @@ export class NetworkService {
    * @memberof NetworkService
    */
   public async createNewBmsDevice(
-      parentId: string,
-      obj: InputDataDevice,
-      ): Promise<any> {
+    parentId: string,
+    obj: InputDataDevice,
+  ): Promise<any> {
     const res = new SpinalBmsDevice(obj.name, obj.type, obj.path, obj.id);
     const tmpInfo = {
       type: SpinalBmsDevice.nodeTypeName,
@@ -176,11 +183,11 @@ export class NetworkService {
     };
     const childId = SpinalGraphService.createNode(tmpInfo, res);
     await SpinalGraphService.addChildInContext(
-        parentId,
-        childId,
-        this.contextId,
-        SpinalBmsDevice.relationName,
-        SPINAL_RELATION_TYPE,
+      parentId,
+      childId,
+      this.contextId,
+      SpinalBmsDevice.relationName,
+      SPINAL_RELATION_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
   }
@@ -192,14 +199,14 @@ export class NetworkService {
    * @memberof NetworkService
    */
   public async createNewBmsEndpointGroup(
-      parentId: string,
-      obj: InputDataEndpointGroup,
-      ): Promise<any> {
+    parentId: string,
+    obj: InputDataEndpointGroup,
+  ): Promise<any> {
     const res = new SpinalBmsEndpointGroup(
-        obj.name,
-        obj.type,
-        obj.path,
-        obj.id,
+      obj.name,
+      obj.type,
+      obj.path,
+      obj.id,
     );
     const tmpInfo = {
       type: SpinalBmsEndpointGroup.nodeTypeName,
@@ -208,11 +215,11 @@ export class NetworkService {
     };
     const childId = SpinalGraphService.createNode(tmpInfo, res);
     await SpinalGraphService.addChildInContext(
-        parentId,
-        childId,
-        this.contextId,
-        SpinalBmsEndpointGroup.relationName,
-        SPINAL_RELATION_TYPE,
+      parentId,
+      childId,
+      this.contextId,
+      SpinalBmsEndpointGroup.relationName,
+      SPINAL_RELATION_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
   }
@@ -224,17 +231,17 @@ export class NetworkService {
    * @memberof NetworkService
    */
   public async createNewBmsEndpoint(
-      parentId: string,
-      obj: InputDataEndpoint,
-      ): Promise<any> {
+    parentId: string,
+    obj: InputDataEndpoint,
+  ): Promise<any> {
     const res = new SpinalBmsEndpoint(
-        obj.name,
-        obj.path,
-        obj.currentValue,
-        obj.unit,
-        InputDataEndpointDataType[obj.dataType],
-        InputDataEndpointType[obj.type],
-        obj.id,
+      obj.name,
+      obj.path,
+      obj.currentValue,
+      obj.unit,
+      InputDataEndpointDataType[obj.dataType],
+      InputDataEndpointType[obj.type],
+      obj.id,
     );
     const tmpInfo = {
       type: SpinalBmsEndpoint.nodeTypeName,
@@ -243,11 +250,11 @@ export class NetworkService {
     };
     const childId = SpinalGraphService.createNode(tmpInfo, res);
     await SpinalGraphService.addChildInContext(
-        parentId,
-        childId,
-        this.contextId,
-        SpinalBmsEndpoint.relationName,
-        SPINAL_RELATION_TYPE,
+      parentId,
+      childId,
+      this.contextId,
+      SpinalBmsEndpoint.relationName,
+      SPINAL_RELATION_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
   }
@@ -260,13 +267,13 @@ export class NetworkService {
    */
   public async updateData(obj: InputDataDevice, date: any = null): Promise<void> {
     const contextChildren = await SpinalGraphService.getChildrenInContext(
-        this.networkId,
-        this.contextId,
+      this.networkId,
+      this.contextId,
     );
 
     for (const child of contextChildren) {
       if (typeof child.idNetwork !== 'undefined' &&
-          child.idNetwork.get() === obj.id) {
+        child.idNetwork.get() === obj.id) {
         return this.updateModel(child, obj, date);
       }
     }
@@ -284,13 +291,13 @@ export class NetworkService {
    * @memberof NetworkService
    */
   private async updateModel(
-      node: any,
-      reference: InputDataDevice|InputDataEndpointGroup,
-      date: any = null,
-      ): Promise<void> {
+    node: any,
+    reference: InputDataDevice | InputDataEndpointGroup,
+    date: any = null,
+  ): Promise<void> {
     const contextChildren = await SpinalGraphService.getChildrenInContext(
-        node.id.get(),
-        this.contextId,
+      node.id.get(),
+      this.contextId,
     );
     const notPresent = [];
     const promises: Promise<void>[] = [];
@@ -306,13 +313,13 @@ export class NetworkService {
               break;
             case SpinalBmsEndpointGroup.nodeTypeName:
               promises.push(
-                  this.updateModel(child, <InputDataEndpointGroup>refChild, date),
+                this.updateModel(child, <InputDataEndpointGroup>refChild, date),
               );
               childFound = true;
               break;
             case SpinalBmsEndpoint.nodeTypeName:
               promises.push(
-                  this.updateEndpoint(child, <InputDataEndpoint>refChild, date),
+                this.updateEndpoint(child, <InputDataEndpoint>refChild, date),
               );
               childFound = true;
               break;
@@ -331,27 +338,27 @@ export class NetworkService {
       switch (item.nodeTypeName) {
         case SpinalBmsDevice.nodeTypeName:
           prom = this.createNewBmsDevice(node.id.get(), <InputDataDevice>(item))
-                     .then((child) => {
-                       return this.updateModel(child, <InputDataDevice>item, date);
-                     });
+            .then((child) => {
+              return this.updateModel(child, <InputDataDevice>item, date);
+            });
           promises.push(prom);
           break;
         case SpinalBmsEndpointGroup.nodeTypeName:
           prom = this.createNewBmsEndpointGroup(
-                         node.id.get(), <InputDataEndpointGroup>item)
-                     .then((child) => {
-                       return this.updateModel(
-                           child, <InputDataEndpointGroup>item, date);
-                     });
+            node.id.get(), <InputDataEndpointGroup>item)
+            .then((child) => {
+              return this.updateModel(
+                child, <InputDataEndpointGroup>item, date);
+            });
           promises.push(prom);
           break;
         case SpinalBmsEndpoint.nodeTypeName:
           prom =
-              this.createNewBmsEndpoint(
-                      node.id.get(), <InputDataEndpoint>(item))
-                  .then((child) => {
-                    return this.updateEndpoint(child, <InputDataEndpoint>item, date);
-                  });
+            this.createNewBmsEndpoint(
+              node.id.get(), <InputDataEndpoint>(item))
+              .then((child) => {
+                return this.updateEndpoint(child, <InputDataEndpoint>item, date);
+              });
           promises.push(prom);
           break;
         default:
@@ -373,7 +380,7 @@ export class NetworkService {
 
     element.currentValue.set(reference.currentValue);
     if (typeof reference.currentValue === 'number' ||
-        typeof reference.currentValue === 'boolean') {
+      typeof reference.currentValue === 'boolean') {
       await this.setEndpointValue(node.id.get(), reference.currentValue, date);
     }
   }
@@ -384,8 +391,8 @@ export class NetworkService {
    */
   async getNetworks(): Promise<string[]> {
     const childrenContext = await SpinalGraphService.getChildrenInContext(
-        this.contextId,
-        this.contextId,
+      this.contextId,
+      this.contextId,
     );
     return childrenContext.map(element => element.id.get());
   }
@@ -401,13 +408,13 @@ export class NetworkService {
     : Promise<string[]> {
     const node = SpinalGraphService.getRealNode(idElement);
     const childrenContext = await node.find(
-        relationNames,
-        (node: SpinalNode<any>) => {
-          if (node.getType().get() === nodeTypeName) {
-            return true;
-          }
-          return false;
-        },
+      relationNames,
+      (node: SpinalNode<any>) => {
+        if (node.getType().get() === nodeTypeName) {
+          return true;
+        }
+        return false;
+      },
     );
     return childrenContext.map((element: SpinalNode<any>) => {
       // hack, call private method while 'find' is not in service
@@ -470,30 +477,54 @@ export class NetworkService {
    * @param {string} idEndpoint
    * @param {(string|boolean|number)} value
    * @param {(number|string|Date)} [date=null]
-   * @returns {Promise<boolean>}
+   * @returns {Promise<void>}
    * @memberof NetworkService
    */
   async setEndpointValue(
-      idEndpoint: string,
-      value: string|boolean|number,
-      date: number|string|Date = null,
-      ): Promise<boolean> {
+    idEndpoint: string,
+    value: string | boolean | number,
+    date: number | string | Date = null,
+  ): Promise<any> {
     const node = SpinalGraphService.getInfo(idEndpoint);
     const element: SpinalBmsEndpoint =
-        <SpinalBmsEndpoint>(await node.element.load());
+      <SpinalBmsEndpoint>(await node.element.load());
     element.currentValue.set(value);
 
-    if (typeof value === 'number' || typeof value === 'boolean') {
-      if (date === null) {
-        return this.spinalServiceTimeseries.pushFromEndpoint(idEndpoint, value);
+    if (this.useTimeseries === true && (typeof value === 'number' || typeof value === 'boolean')) {
+      if (this.useDelay === 0) {
+        return pushData(this.spinalServiceTimeseries, idEndpoint,
+                        <spinal.Val>(element.currentValue), date);
       }
-      return this.spinalServiceTimeseries.insertFromEndpoint(
-          idEndpoint,
-          value,
-          new Date(date),
-      );
+      if (dicEnd.has(idEndpoint)) {
+        const fct = dicEnd.get(idEndpoint);
+        fct(this.spinalServiceTimeseries, idEndpoint, element.currentValue, date);
+      } else {
+        const fct = throttle(pushData, 3 * 60 * 1000);
+        dicEnd.set(idEndpoint, fct);
+        fct(this.spinalServiceTimeseries, idEndpoint, element.currentValue, date);
+      }
+
+      // if (date === null) {
+      //   return this.spinalServiceTimeseries.pushFromEndpoint(idEndpoint, value);
+      // }
+      // return this.spinalServiceTimeseries.insertFromEndpoint(
+      //     idEndpoint,
+      //     value,
+      //     new Date(date),
+      // );
     }
   }
+}
+
+const dicEnd = new Map();
+
+function pushData(spinalServiceTimeseries: SpinalServiceTimeseries, idEndpoint: string,
+                  value: spinal.Val, date?: number | string | Date): Promise<boolean> {
+  if (date === null) {
+    return spinalServiceTimeseries.pushFromEndpoint(idEndpoint, value.get());
+  }
+  return spinalServiceTimeseries.insertFromEndpoint(idEndpoint, value.get(), new Date(date));
+
 }
 
 export default NetworkService;

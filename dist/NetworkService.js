@@ -55,8 +55,13 @@ class NetworkService {
      *Creates an instance of NetworkService.
      * @memberof NetworkService
      */
-    constructor() {
+    constructor(useTimeseries = true) {
         this.spinalServiceTimeseries = new spinal_model_timeseries_1.SpinalServiceTimeseries();
+        this.useTimeseries = useTimeseries;
+        this.useDelay = 0;
+    }
+    setupDelay(timeout) {
+        this.useDelay = timeout;
     }
     /**
      * @param {spinal.Model} forgeFile
@@ -365,7 +370,7 @@ class NetworkService {
      * @param {string} idEndpoint
      * @param {(string|boolean|number)} value
      * @param {(number|string|Date)} [date=null]
-     * @returns {Promise<boolean>}
+     * @returns {Promise<void>}
      * @memberof NetworkService
      */
     setEndpointValue(idEndpoint, value, date = null) {
@@ -373,15 +378,40 @@ class NetworkService {
             const node = spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(idEndpoint);
             const element = (yield node.element.load());
             element.currentValue.set(value);
-            if (typeof value === 'number' || typeof value === 'boolean') {
-                if (date === null) {
-                    return this.spinalServiceTimeseries.pushFromEndpoint(idEndpoint, value);
+            if (this.useTimeseries === true && (typeof value === 'number' || typeof value === 'boolean')) {
+                if (this.useDelay === 0) {
+                    return pushData(this.spinalServiceTimeseries, idEndpoint, (element.currentValue), date);
                 }
-                return this.spinalServiceTimeseries.insertFromEndpoint(idEndpoint, value, new Date(date));
+                if (dicEnd.has(idEndpoint)) {
+                    const fct = dicEnd.get(idEndpoint);
+                    fct(this.spinalServiceTimeseries, idEndpoint, element.currentValue, date);
+                }
+                else {
+                    const fct = throttle(pushData, 3 * 60 * 1000);
+                    dicEnd.set(idEndpoint, fct);
+                    fct(this.spinalServiceTimeseries, idEndpoint, element.currentValue, date);
+                }
+                // if (date === null) {
+                //   return this.spinalServiceTimeseries.pushFromEndpoint(idEndpoint, value);
+                // }
+                // return this.spinalServiceTimeseries.insertFromEndpoint(
+                //     idEndpoint,
+                //     value,
+                //     new Date(date),
+                // );
             }
         });
     }
 }
 exports.NetworkService = NetworkService;
+const lodash = require('lodash');
+const throttle = lodash.throttle;
+const dicEnd = new Map();
+function pushData(spinalServiceTimeseries, idEndpoint, value, date) {
+    if (date === null) {
+        return spinalServiceTimeseries.pushFromEndpoint(idEndpoint, value.get());
+    }
+    return spinalServiceTimeseries.insertFromEndpoint(idEndpoint, value.get(), new Date(date));
+}
 exports.default = NetworkService;
 //# sourceMappingURL=NetworkService.js.map

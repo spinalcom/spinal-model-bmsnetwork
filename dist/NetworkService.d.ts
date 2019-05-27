@@ -11,11 +11,14 @@ export declare class NetworkService {
     private contextId;
     private networkId;
     private spinalServiceTimeseries;
+    useDelay: number;
+    useTimeseries: boolean;
     /**
      *Creates an instance of NetworkService.
      * @memberof NetworkService
      */
-    constructor();
+    constructor(useTimeseries?: boolean);
+    setupDelay(timeout: number): void;
     /**
      * @param {spinal.Model} forgeFile
      * @param {ConfigService} configService
@@ -122,10 +125,10 @@ export declare class NetworkService {
      * @param {string} idEndpoint
      * @param {(string|boolean|number)} value
      * @param {(number|string|Date)} [date=null]
-     * @returns {Promise<boolean>}
+     * @returns {Promise<void>}
      * @memberof NetworkService
      */
-    setEndpointValue(idEndpoint: string, value: string | boolean | number, date?: number | string | Date): Promise<boolean>;
+    setEndpointValue(idEndpoint: string, value: string | boolean | number, date?: number | string | Date): Promise<any>;
 }
 export default NetworkService;
 export { ConfigService };
