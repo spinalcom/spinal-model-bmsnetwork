@@ -22,8 +22,8 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 
-import { Model, spinalCore } from 'spinal-core-connectorjs_type';
-import { genUID } from '../Utils/genUID';
+import { Model, spinalCore } from "spinal-core-connectorjs_type";
+import { genUID } from "../Utils/genUID";
 
 /**
  * @property {spinal.Str} id
@@ -42,13 +42,13 @@ export class SpinalBmsEndpoint extends Model {
    * @type {string}
    * @memberof SpinalBmsEndpoint
    */
-  public static relationName: string = 'hasBmsEndpoint';
+  public static relationName: string = "hasBmsEndpoint";
   /**
    * @static
    * @type {string}
    * @memberof SpinalBmsEndpoint
    */
-  public static nodeTypeName: string = 'BmsEndpoint';
+  public static nodeTypeName: string = "BmsEndpoint";
 
   public id: spinal.Str;
   public path: spinal.Str;
@@ -68,9 +68,15 @@ export class SpinalBmsEndpoint extends Model {
    * @param {string} [id=genUID('SpinalBmsEndpoint')]
    * @memberof SpinalBmsEndpoint
    */
-  constructor(name: string = '', path: string = '', currentValue: string|number = '',
-              unit: string = '', dataType: string = '', type: string = '',
-              id: string = genUID('SpinalBmsEndpoint')) {
+  constructor(
+    name: string = "",
+    path: string = "",
+    currentValue: string | number | boolean = "",
+    unit: string = "",
+    dataType: string = "",
+    type: string = "",
+    id: string = genUID("SpinalBmsEndpoint")
+  ) {
     super();
     this.add_attr({
       id,
@@ -79,7 +85,7 @@ export class SpinalBmsEndpoint extends Model {
       currentValue,
       unit,
       dataType,
-      type,
+      type
     });
   }
 }

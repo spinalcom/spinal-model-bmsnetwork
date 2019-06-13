@@ -46,6 +46,7 @@ exports.SpinalBmsDevice = SpinalBms_1.SpinalBmsDevice;
 exports.SpinalBmsEndpoint = SpinalBms_1.SpinalBmsEndpoint;
 exports.SpinalBmsEndpointGroup = SpinalBms_1.SpinalBmsEndpointGroup;
 exports.SpinalBmsNetwork = SpinalBms_1.SpinalBmsNetwork;
+const throttle = require('lodash.throttle');
 /**
  * @export
  * @class NetworkService
@@ -404,8 +405,6 @@ class NetworkService {
     }
 }
 exports.NetworkService = NetworkService;
-const lodash = require('lodash');
-const throttle = lodash.throttle;
 const dicEnd = new Map();
 function pushData(spinalServiceTimeseries, idEndpoint, value, date) {
     if (date === null) {

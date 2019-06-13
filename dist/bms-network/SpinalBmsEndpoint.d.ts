@@ -1,4 +1,4 @@
-import { Model } from 'spinal-core-connectorjs_type';
+import { Model } from "spinal-core-connectorjs_type";
 /**
  * @property {spinal.Str} id
  * @property {spinal.Str} path
@@ -40,6 +40,6 @@ export declare class SpinalBmsEndpoint extends Model {
      * @param {string} [id=genUID('SpinalBmsEndpoint')]
      * @memberof SpinalBmsEndpoint
      */
-    constructor(name?: string, path?: string, currentValue?: string | number, unit?: string, dataType?: string, type?: string, id?: string);
+    constructor(name?: string, path?: string, currentValue?: string | number | boolean, unit?: string, dataType?: string, type?: string, id?: string);
 }
 export default SpinalBmsEndpoint;

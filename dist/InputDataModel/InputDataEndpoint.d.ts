@@ -1,5 +1,5 @@
-import { InputDataEndpointDataType } from './InputDataEndpointDataType';
-import { InputDataEndpointType } from './InputDataEndpointType';
+import { InputDataEndpointDataType } from "./InputDataEndpointDataType";
+import { InputDataEndpointType } from "./InputDataEndpointType";
 /**
  * @property {string} id
  * @property {string} name
@@ -16,7 +16,7 @@ export interface InputDataEndpoint {
     id: string;
     name: string;
     path: string;
-    currentValue: number | string;
+    currentValue: number | string | boolean;
     unit: string;
     dataType: InputDataEndpointDataType;
     type: InputDataEndpointType;
