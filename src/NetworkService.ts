@@ -90,7 +90,7 @@ export class NetworkService {
     configService: ConfigService,
     autoCreate: boolean = true,
   ): Promise<{ contextId: string; networkId: string }> {
-    await SpinalGraphService.setGraphFromForgeFile(forgeFile);
+    await SpinalGraphService.setGraph(forgeFile);
 
     this.context = SpinalGraphService.getContext(configService.contextName);
     if (this.context === undefined) {
