@@ -47,6 +47,7 @@ class SpinalBmsNetwork extends spinal_core_connectorjs_type_1.Model {
         this.add_attr({ id, name, type });
     }
 }
+exports.SpinalBmsNetwork = SpinalBmsNetwork;
 /**
  * @static
  * @type {string}
@@ -59,7 +60,6 @@ SpinalBmsNetwork.relationName = 'hasBmsNetwork';
  * @memberof SpinalBmsNetwork
  */
 SpinalBmsNetwork.nodeTypeName = 'BmsNetwork';
-exports.SpinalBmsNetwork = SpinalBmsNetwork;
 spinal_core_connectorjs_type_1.spinalCore.register_models(SpinalBmsNetwork);
 exports.default = SpinalBmsNetwork;
 //# sourceMappingURL=SpinalBmsNetwork.js.map

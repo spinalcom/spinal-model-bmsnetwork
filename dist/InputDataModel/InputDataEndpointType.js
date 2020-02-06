@@ -35,5 +35,7 @@ var InputDataEndpointType;
     InputDataEndpointType[InputDataEndpointType["Light"] = 4] = "Light";
     InputDataEndpointType[InputDataEndpointType["Alarm"] = 5] = "Alarm";
     InputDataEndpointType[InputDataEndpointType["Other"] = 6] = "Other";
+    InputDataEndpointType[InputDataEndpointType["Consigne"] = 7] = "Consigne";
+    InputDataEndpointType[InputDataEndpointType["co2"] = 8] = "co2";
 })(InputDataEndpointType = exports.InputDataEndpointType || (exports.InputDataEndpointType = {}));
 //# sourceMappingURL=InputDataEndpointType.js.map

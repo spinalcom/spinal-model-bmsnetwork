@@ -53,6 +53,7 @@ class SpinalBmsDevice extends spinal_core_connectorjs_type_1.Model {
         });
     }
 }
+exports.SpinalBmsDevice = SpinalBmsDevice;
 /**
  * @static
  * @type {string}
@@ -65,7 +66,6 @@ SpinalBmsDevice.relationName = 'hasBmsDevice';
  * @memberof SpinalBmsDevice
  */
 SpinalBmsDevice.nodeTypeName = 'BmsDevice';
-exports.SpinalBmsDevice = SpinalBmsDevice;
 spinal_core_connectorjs_type_1.spinalCore.register_models(SpinalBmsDevice);
 exports.default = SpinalBmsDevice;
 //# sourceMappingURL=SpinalBmsDevice.js.map

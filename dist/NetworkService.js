@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -73,7 +74,7 @@ class NetworkService {
      */
     init(forgeFile, configService, autoCreate = true) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield spinal_env_viewer_graph_service_1.SpinalGraphService.setGraphFromForgeFile(forgeFile);
+            yield spinal_env_viewer_graph_service_1.SpinalGraphService.setGraph(forgeFile);
             this.context = spinal_env_viewer_graph_service_1.SpinalGraphService.getContext(configService.contextName);
             if (this.context === undefined) {
                 if (autoCreate === true) {
@@ -116,11 +117,11 @@ class NetworkService {
                 networkName,
                 typeName,
                 type: SpinalBms_1.SpinalBmsNetwork.nodeTypeName,
-                name: typeName,
+                name: networkName,
                 idNetwork: res.id.get(),
             };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
-            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsNetwork.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
+            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsNetwork.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
         });
     }
@@ -139,7 +140,7 @@ class NetworkService {
                 idNetwork: obj.id,
             };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
-            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsDevice.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
+            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsDevice.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
         });
     }
@@ -158,7 +159,7 @@ class NetworkService {
                 idNetwork: obj.id,
             };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
-            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpointGroup.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
+            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpointGroup.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
         });
     }
@@ -177,7 +178,7 @@ class NetworkService {
                 idNetwork: obj.id,
             };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
-            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpoint.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_TYPE);
+            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpoint.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
         });
     }

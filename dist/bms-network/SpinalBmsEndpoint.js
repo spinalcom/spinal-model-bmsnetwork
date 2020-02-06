@@ -61,6 +61,7 @@ class SpinalBmsEndpoint extends spinal_core_connectorjs_type_1.Model {
         });
     }
 }
+exports.SpinalBmsEndpoint = SpinalBmsEndpoint;
 /**
  * @static
  * @type {string}
@@ -73,7 +74,6 @@ SpinalBmsEndpoint.relationName = "hasBmsEndpoint";
  * @memberof SpinalBmsEndpoint
  */
 SpinalBmsEndpoint.nodeTypeName = "BmsEndpoint";
-exports.SpinalBmsEndpoint = SpinalBmsEndpoint;
 spinal_core_connectorjs_type_1.spinalCore.register_models(SpinalBmsEndpoint);
 exports.default = SpinalBmsEndpoint;
 //# sourceMappingURL=SpinalBmsEndpoint.js.map

@@ -33,4 +33,6 @@ export enum InputDataEndpointType {
   Light,
   Alarm,
   Other,
+  Consigne,
+  co2
 }

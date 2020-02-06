@@ -23,7 +23,7 @@
  */
 import { Model } from 'spinal-core-connectorjs_type';
 import {
-  SPINAL_RELATION_TYPE,
+  SPINAL_RELATION_PTR_LST_TYPE,
   SpinalContext,
   SpinalGraphService,
   SpinalNode,
@@ -90,7 +90,7 @@ export class NetworkService {
     configService: ConfigService,
     autoCreate: boolean = true,
   ): Promise<{ contextId: string; networkId: string }> {
-    await SpinalGraphService.setGraph(forgeFile);
+    await SpinalGraphService.setGraph(<any>forgeFile);
 
     this.context = SpinalGraphService.getContext(configService.contextName);
     if (this.context === undefined) {
@@ -151,7 +151,7 @@ export class NetworkService {
       networkName,
       typeName,
       type: SpinalBmsNetwork.nodeTypeName,
-      name: typeName,
+      name: networkName,
       idNetwork: res.id.get(),
     };
     const childId = SpinalGraphService.createNode(tmpInfo, res);
@@ -160,7 +160,7 @@ export class NetworkService {
       childId,
       this.contextId,
       SpinalBmsNetwork.relationName,
-      SPINAL_RELATION_TYPE,
+      SPINAL_RELATION_PTR_LST_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
   }
@@ -187,7 +187,7 @@ export class NetworkService {
       childId,
       this.contextId,
       SpinalBmsDevice.relationName,
-      SPINAL_RELATION_TYPE,
+      SPINAL_RELATION_PTR_LST_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
   }
@@ -219,7 +219,7 @@ export class NetworkService {
       childId,
       this.contextId,
       SpinalBmsEndpointGroup.relationName,
-      SPINAL_RELATION_TYPE,
+      SPINAL_RELATION_PTR_LST_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
   }
@@ -254,7 +254,7 @@ export class NetworkService {
       childId,
       this.contextId,
       SpinalBmsEndpoint.relationName,
-      SPINAL_RELATION_TYPE,
+      SPINAL_RELATION_PTR_LST_TYPE,
     );
     return SpinalGraphService.getInfo(childId);
   }
@@ -493,7 +493,7 @@ export class NetworkService {
     if (this.useTimeseries === true && (typeof value === 'number' || typeof value === 'boolean')) {
       if (this.useDelay === 0) {
         return pushData(this.spinalServiceTimeseries, idEndpoint,
-                        <spinal.Val>(element.currentValue), date);
+          <spinal.Val>(element.currentValue), date);
       }
       if (dicEnd.has(idEndpoint)) {
         const fct = dicEnd.get(idEndpoint);
@@ -519,7 +519,7 @@ export class NetworkService {
 const dicEnd = new Map();
 
 function pushData(spinalServiceTimeseries: SpinalServiceTimeseries, idEndpoint: string,
-                  value: spinal.Val, date?: number | string | Date): Promise<boolean> {
+  value: spinal.Val, date?: number | string | Date): Promise<boolean> {
   if (date === null) {
     return spinalServiceTimeseries.pushFromEndpoint(idEndpoint, value.get());
   }

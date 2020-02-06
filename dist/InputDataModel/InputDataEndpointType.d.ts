@@ -8,5 +8,7 @@ export declare enum InputDataEndpointType {
     Occupation = 3,
     Light = 4,
     Alarm = 5,
-    Other = 6
+    Other = 6,
+    Consigne = 7,
+    co2 = 8
 }
