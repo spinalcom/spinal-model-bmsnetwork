@@ -3,7 +3,7 @@
     "target": "es2015",
     "module": "commonjs",
     "outDir": "dist",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "declaration": true,
     "sourceMap": true

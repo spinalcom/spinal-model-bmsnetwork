@@ -47,6 +47,7 @@ exports.SpinalBmsDevice = SpinalBms_1.SpinalBmsDevice;
 exports.SpinalBmsEndpoint = SpinalBms_1.SpinalBmsEndpoint;
 exports.SpinalBmsEndpointGroup = SpinalBms_1.SpinalBmsEndpointGroup;
 exports.SpinalBmsNetwork = SpinalBms_1.SpinalBmsNetwork;
+const spinal_env_viewer_plugin_documentation_service_1 = require("spinal-env-viewer-plugin-documentation-service");
 const throttle = require('lodash.throttle');
 /**
  * @export
@@ -179,6 +180,7 @@ class NetworkService {
             };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpoint.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
+            yield this._createAttributes(childId, res);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
         });
     }
@@ -402,6 +404,18 @@ class NetworkService {
                 //     new Date(date),
                 // );
             }
+        });
+    }
+    _createAttributes(nodeId, elementModel) {
+        const categoryName = "endpoint values";
+        const realNode = spinal_env_viewer_graph_service_1.SpinalGraphService.getRealNode(nodeId);
+        return spinal_env_viewer_plugin_documentation_service_1.serviceDocumentation.addCategoryAttribute(realNode, categoryName).then((attributeCategory) => {
+            const promises = [];
+            for (const key of elementModel._attribute_names) {
+                promises.push(spinal_env_viewer_plugin_documentation_service_1.serviceDocumentation.addAttributeByCategory(realNode, attributeCategory, key, elementModel[key]));
+            }
+            return Promise.all(promises);
+        }).catch((err) => {
         });
     }
 }

@@ -129,6 +129,7 @@ export declare class NetworkService {
      * @memberof NetworkService
      */
     setEndpointValue(idEndpoint: string, value: string | boolean | number, date?: number | string | Date): Promise<any>;
+    private _createAttributes;
 }
 export default NetworkService;
 export { ConfigService };

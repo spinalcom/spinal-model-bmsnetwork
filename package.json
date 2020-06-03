@@ -17,7 +17,8 @@
     "spinal-core-connectorjs_type": "git+https://github.com/spinalcom/spinal-core-connectorjs_type.git",
     "spinal-env-viewer-graph-service": "git+https://github.com/spinalcom/Spinal-Graph-Service.git",
     "spinal-lib-forgefile": "git+https://github.com/spinalcom/spinal-lib-forgefile.git",
-    "spinal-model-timeseries": "git+https://github.com/spinalcom/spinal-model-timeseries.git"
+    "spinal-model-timeseries": "git+https://github.com/spinalcom/spinal-model-timeseries.git",
+    "spinal-env-viewer-plugin-documentation-service": "git+https://github.com/spinalcom/spinal-env-viewer-plugin-documentation-service.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

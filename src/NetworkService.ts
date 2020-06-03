@@ -22,12 +22,14 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 import { Model } from 'spinal-core-connectorjs_type';
+
 import {
   SPINAL_RELATION_PTR_LST_TYPE,
   SpinalContext,
   SpinalGraphService,
   SpinalNode,
 } from 'spinal-env-viewer-graph-service';
+
 import {
   SpinalDateValue,
   SpinalDateValueArray,
@@ -44,6 +46,7 @@ import {
   InputDataEndpointGroup,
   InputDataEndpointType,
 } from './InputDataModel/InputDataModel';
+
 import {
   SpinalBmsDevice,
   SpinalBmsEndpoint,
@@ -51,8 +54,11 @@ import {
   SpinalBmsNetwork,
 } from './SpinalBms';
 
+import { serviceDocumentation } from 'spinal-env-viewer-plugin-documentation-service';
+
 import { ConfigService } from './Utils/ConfigService';
 const throttle = require('lodash.throttle');
+
 
 /**
  * @export
@@ -93,6 +99,7 @@ export class NetworkService {
     await SpinalGraphService.setGraph(<any>forgeFile);
 
     this.context = SpinalGraphService.getContext(configService.contextName);
+
     if (this.context === undefined) {
       if (autoCreate === true) {
         this.context = await SpinalGraphService.addContext(
@@ -113,6 +120,7 @@ export class NetworkService {
       this.contextId,
       this.contextId,
     );
+
     let childFoundId: string = '';
     for (const childContext of childrenContext) {
       if (typeof childContext.networkName !== 'undefined' &&
@@ -248,7 +256,9 @@ export class NetworkService {
       name: obj.name,
       idNetwork: obj.id,
     };
+
     const childId = SpinalGraphService.createNode(tmpInfo, res);
+
     await SpinalGraphService.addChildInContext(
       parentId,
       childId,
@@ -256,6 +266,9 @@ export class NetworkService {
       SpinalBmsEndpoint.relationName,
       SPINAL_RELATION_PTR_LST_TYPE,
     );
+
+    await this._createAttributes(childId, res);
+
     return SpinalGraphService.getInfo(childId);
   }
 
@@ -514,6 +527,27 @@ export class NetworkService {
       // );
     }
   }
+
+  private _createAttributes(nodeId: string, elementModel: SpinalBmsEndpoint): Promise<any> {
+    const categoryName: string = "endpoint values";
+    const realNode = SpinalGraphService.getRealNode(nodeId);
+
+    return serviceDocumentation.addCategoryAttribute(realNode, categoryName).then((attributeCategory) => {
+      const promises = []
+
+      for (const key of elementModel._attribute_names) {
+        promises.push(serviceDocumentation.addAttributeByCategory(realNode, attributeCategory, key, elementModel[key]));
+      }
+
+      return Promise.all(promises);
+    }).catch((err) => {
+
+    });
+
+
+
+  }
+
 }
 
 const dicEnd = new Map();
