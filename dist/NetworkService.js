@@ -285,6 +285,7 @@ class NetworkService {
     updateEndpoint(node, reference, date = null) {
         return __awaiter(this, void 0, void 0, function* () {
             const element = yield node.element.load();
+            yield this._createAttributes(node.id.get(), element);
             element.currentValue.set(reference.currentValue);
             if (typeof reference.currentValue === 'number' ||
                 typeof reference.currentValue === 'boolean') {

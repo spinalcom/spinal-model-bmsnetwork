@@ -391,7 +391,10 @@ export class NetworkService {
   async updateEndpoint(node: any, reference: InputDataEndpoint, date: any = null): Promise<void> {
     const element: SpinalBmsEndpoint = await node.element.load();
 
+    await this._createAttributes(node.id.get(), element);
+
     element.currentValue.set(reference.currentValue);
+
     if (typeof reference.currentValue === 'number' ||
       typeof reference.currentValue === 'boolean') {
       await this.setEndpointValue(node.id.get(), reference.currentValue, date);
@@ -543,8 +546,6 @@ export class NetworkService {
     }).catch((err) => {
 
     });
-
-
 
   }
 
