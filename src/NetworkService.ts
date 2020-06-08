@@ -532,7 +532,7 @@ export class NetworkService {
   }
 
   private _createAttributes(nodeId: string, elementModel: SpinalBmsEndpoint): Promise<any> {
-    const categoryName: string = "endpoint values";
+    const categoryName: string = "default";
     const realNode = SpinalGraphService.getRealNode(nodeId);
 
     return serviceDocumentation.addCategoryAttribute(realNode, categoryName).then((attributeCategory) => {

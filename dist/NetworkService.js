@@ -408,7 +408,7 @@ class NetworkService {
         });
     }
     _createAttributes(nodeId, elementModel) {
-        const categoryName = "endpoint values";
+        const categoryName = "default";
         const realNode = spinal_env_viewer_graph_service_1.SpinalGraphService.getRealNode(nodeId);
         return spinal_env_viewer_plugin_documentation_service_1.serviceDocumentation.addCategoryAttribute(realNode, categoryName).then((attributeCategory) => {
             const promises = [];
