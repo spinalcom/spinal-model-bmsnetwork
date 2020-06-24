@@ -563,6 +563,7 @@ function pushData(spinalServiceTimeseries: SpinalServiceTimeseries, idEndpoint: 
 }
 
 export default NetworkService;
+
 export { ConfigService };
 export {
   InputDataDevice,
