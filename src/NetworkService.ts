@@ -197,6 +197,7 @@ export class NetworkService {
       SpinalBmsDevice.relationName,
       SPINAL_RELATION_PTR_LST_TYPE,
     );
+    await this._createAttributes(childId, res);
     return SpinalGraphService.getInfo(childId);
   }
 
@@ -229,6 +230,9 @@ export class NetworkService {
       SpinalBmsEndpointGroup.relationName,
       SPINAL_RELATION_PTR_LST_TYPE,
     );
+
+    await this._createAttributes(childId, res);
+
     return SpinalGraphService.getInfo(childId);
   }
 
@@ -391,7 +395,7 @@ export class NetworkService {
   async updateEndpoint(node: any, reference: InputDataEndpoint, date: any = null): Promise<void> {
     const element: SpinalBmsEndpoint = await node.element.load();
 
-    await this._createAttributes(node.id.get(), element);
+    // await this._createAttributes(node.id.get(), element);
 
     element.currentValue.set(reference.currentValue);
 
@@ -531,7 +535,7 @@ export class NetworkService {
     }
   }
 
-  private _createAttributes(nodeId: string, elementModel: SpinalBmsEndpoint): Promise<any> {
+  private _createAttributes(nodeId: string, elementModel: SpinalBmsEndpoint | SpinalBmsEndpointGroup | SpinalBmsDevice): Promise<any> {
     const categoryName: string = "default";
     const realNode = SpinalGraphService.getRealNode(nodeId);
 
