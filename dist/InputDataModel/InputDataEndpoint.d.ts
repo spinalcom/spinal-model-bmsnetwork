@@ -12,13 +12,18 @@ import { InputDataEndpointType } from "./InputDataEndpointType";
  * @export
  * @class InputDataEndpoint
  */
-export interface InputDataEndpoint {
+export declare class InputDataEndpoint {
     id: string;
     name: string;
     path: string;
-    currentValue: number | string | boolean;
     unit: string;
     dataType: InputDataEndpointDataType;
     type: InputDataEndpointType;
     nodeTypeName: string;
+    private _modifiedValue;
+    private _currentValue;
+    get currentValue(): number | string | boolean;
+    set currentValue(v: number | string | boolean);
+    resetModifiedValue(): void;
+    get modifiedValue(): boolean;
 }

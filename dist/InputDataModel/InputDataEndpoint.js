@@ -23,4 +23,30 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @property {string} id
+ * @property {string} name
+ * @property {string} path
+ * @property {number|string} currentValue;
+ * @property {string} unit
+ * @property {InputDataEndpointDataType} dataType
+ * @property {InputDataEndpointType} type
+ * @property {string} nodeTypeName should be SpinalBmsEndpoint.nodeTypeName || 'BmsEndpoint'
+ * @export
+ * @class InputDataEndpoint
+ */
+class InputDataEndpoint {
+    constructor() {
+        this._modifiedValue = false;
+    }
+    get currentValue() { return this._currentValue; }
+    set currentValue(v) {
+        this._currentValue = v;
+        this._modifiedValue = true;
+    }
+    resetModifiedValue() { this._modifiedValue = false; }
+    get modifiedValue() { return this._modifiedValue; }
+    ;
+}
+exports.InputDataEndpoint = InputDataEndpoint;
 //# sourceMappingURL=InputDataEndpoint.js.map

@@ -37,13 +37,22 @@ import { InputDataEndpointType } from "./InputDataEndpointType";
  * @export
  * @class InputDataEndpoint
  */
-export interface InputDataEndpoint {
+export class InputDataEndpoint {
   id: string;
   name: string;
   path: string;
-  currentValue: number | string | boolean;
   unit: string;
   dataType: InputDataEndpointDataType;
   type: InputDataEndpointType;
   nodeTypeName: string; // should be SpinalBmsEndpoint.nodeTypeName || 'BmsEndpoint'
+
+  private _modifiedValue: boolean = false;
+  private _currentValue: number | string | boolean;
+  public get currentValue() { return this._currentValue; }
+  public set currentValue(v: number | string | boolean) {
+    this._currentValue = v;
+    this._modifiedValue = true;
+  }
+  resetModifiedValue() { this._modifiedValue = false; }
+  get modifiedValue() {return this._modifiedValue};
 }

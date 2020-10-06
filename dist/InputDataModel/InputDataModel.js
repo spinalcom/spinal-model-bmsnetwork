@@ -23,6 +23,8 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+const InputDataEndpoint_1 = require("./InputDataEndpoint");
+exports.InputDataEndpoint = InputDataEndpoint_1.InputDataEndpoint;
 const InputDataEndpointDataType_1 = require("./InputDataEndpointDataType");
 exports.InputDataEndpointDataType = InputDataEndpointDataType_1.InputDataEndpointDataType;
 const InputDataEndpointType_1 = require("./InputDataEndpointType");

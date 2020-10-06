@@ -40,6 +40,7 @@ exports.SpinalTimeSeries = spinal_model_timeseries_1.SpinalTimeSeries;
 exports.SpinalTimeSeriesArchive = spinal_model_timeseries_1.SpinalTimeSeriesArchive;
 exports.SpinalTimeSeriesArchiveDay = spinal_model_timeseries_1.SpinalTimeSeriesArchiveDay;
 const InputDataModel_1 = require("./InputDataModel/InputDataModel");
+exports.InputDataEndpoint = InputDataModel_1.InputDataEndpoint;
 exports.InputDataEndpointDataType = InputDataModel_1.InputDataEndpointDataType;
 exports.InputDataEndpointType = InputDataModel_1.InputDataEndpointType;
 const SpinalBms_1 = require("./SpinalBms");
@@ -287,11 +288,13 @@ class NetworkService {
     updateEndpoint(node, reference, date = null) {
         return __awaiter(this, void 0, void 0, function* () {
             const element = yield node.element.load();
-            // await this._createAttributes(node.id.get(), element);
-            element.currentValue.set(reference.currentValue);
-            if (typeof reference.currentValue === 'number' ||
-                typeof reference.currentValue === 'boolean') {
-                yield this.setEndpointValue(node.id.get(), reference.currentValue, date);
+            if (reference.modifiedValue === true) {
+                reference.resetModifiedValue();
+                element.currentValue.set(reference.currentValue);
+                if (typeof reference.currentValue === 'number' ||
+                    typeof reference.currentValue === 'boolean') {
+                    yield this.setEndpointValue(node.id.get(), reference.currentValue, date);
+                }
             }
         });
     }
