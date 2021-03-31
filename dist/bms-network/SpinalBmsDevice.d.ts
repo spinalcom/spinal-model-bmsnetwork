@@ -25,6 +25,7 @@ export declare class SpinalBmsDevice extends Model {
     name: spinal.Str;
     type: spinal.Str;
     path: spinal.Str;
+    address: spinal.Str;
     /**
      *Creates an instance of SpinalBmsDevice.
      * @param {string} [name='']
@@ -33,6 +34,6 @@ export declare class SpinalBmsDevice extends Model {
      * @param {string} [id=genUID('SpinalBmsDevice')]
      * @memberof SpinalBmsDevice
      */
-    constructor(name?: string, type?: string, path?: string, id?: string);
+    constructor(name?: string, type?: string, path?: string, address?: String, id?: string);
 }
 export default SpinalBmsDevice;

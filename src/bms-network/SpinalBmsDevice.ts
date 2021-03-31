@@ -52,6 +52,7 @@ export class SpinalBmsDevice extends Model {
   public name: spinal.Str;
   public type: spinal.Str;
   public path: spinal.Str;
+  public address: spinal.Str;
 
   /**
    *Creates an instance of SpinalBmsDevice.
@@ -61,13 +62,14 @@ export class SpinalBmsDevice extends Model {
    * @param {string} [id=genUID('SpinalBmsDevice')]
    * @memberof SpinalBmsDevice
    */
-  constructor(name: string= '', type: string= '', path: string= '',
-              id: string = genUID('SpinalBmsDevice'))  {
+  constructor(name: string = '', type: string = '', path: string = '', address: String = '',
+    id: string = genUID('SpinalBmsDevice')) {
     super();
     this.add_attr({
       id,
       name,
       type,
+      address,
       path,
     });
   }

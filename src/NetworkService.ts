@@ -182,11 +182,12 @@ export class NetworkService {
     parentId: string,
     obj: InputDataDevice,
   ): Promise<any> {
-    const res = new SpinalBmsDevice(obj.name, obj.type, obj.path, obj.id);
+    const res = new SpinalBmsDevice(obj.name, obj.type, obj.path, obj.address, obj.id);
     const tmpInfo = {
       type: SpinalBmsDevice.nodeTypeName,
       name: obj.name,
       idNetwork: obj.id,
+      address: obj.address
     };
     const childId = SpinalGraphService.createNode(tmpInfo, res);
     await SpinalGraphService.addChildInContext(
