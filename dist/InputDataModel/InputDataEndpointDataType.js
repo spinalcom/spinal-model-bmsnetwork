@@ -23,6 +23,7 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InputDataEndpointDataType = void 0;
 /**
  * @enum {number}
  */

@@ -1,3 +1,4 @@
+import { SpinalNode } from 'spinal-env-viewer-graph-service';
 import { SpinalDateValue, SpinalDateValueArray, SpinalServiceTimeseries, SpinalTimeSeries, SpinalTimeSeriesArchive, SpinalTimeSeriesArchiveDay } from 'spinal-model-timeseries';
 import { InputDataDevice, InputDataEndpoint, InputDataEndpointDataType, InputDataEndpointGroup, InputDataEndpointType } from './InputDataModel/InputDataModel';
 import { SpinalBmsDevice, SpinalBmsEndpoint, SpinalBmsEndpointGroup, SpinalBmsNetwork } from './SpinalBms';
@@ -65,7 +66,7 @@ export declare class NetworkService {
      * @returns {Promise<void>}
      * @memberof NetworkService
      */
-    updateData(obj: InputDataDevice, date?: any): Promise<void>;
+    updateData(obj: InputDataDevice, date?: any, network?: SpinalNode<any>): Promise<void>;
     /**
      * @private
      * @param {*} node

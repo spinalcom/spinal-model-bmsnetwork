@@ -109,8 +109,7 @@ export class NetworkService {
         );
       } else {
         throw Error(
-          `Context named "${
-          configService.contextName}" is not found in the graph.`,
+          `Context named "${configService.contextName}" is not found in the graph.`,
         );
       }
     }
@@ -124,7 +123,7 @@ export class NetworkService {
     let childFoundId: string = '';
     for (const childContext of childrenContext) {
       if (typeof childContext.networkName !== 'undefined' &&
-        childContext.networkName.get() === configService.networkType) {
+        childContext.networkName.get() === configService.networkName) {
         childFoundId = childContext.id.get();
         break;
       }
@@ -282,15 +281,22 @@ export class NetworkService {
    * @returns {Promise<void>}
    * @memberof NetworkService
    */
-  public async updateData(obj: InputDataDevice, date: any = null): Promise<void> {
+  public async updateData(obj: InputDataDevice, date: any = null, network: SpinalNode<any> = null): Promise<void> {
+
+    let networkId = this.networkId;
+    if (network) {
+      (<any>SpinalGraphService)._addNode(network);
+      networkId = network.getId().get();
+    }
+
     const contextChildren = await SpinalGraphService.getChildrenInContext(
-      this.networkId,
+      networkId,
       this.contextId,
     );
 
     for (const child of contextChildren) {
       if (typeof child.idNetwork !== 'undefined' &&
-        child.idNetwork.get() === obj.id) {
+        child.idNetwork.get() == obj.id) {
         return this.updateModel(child, obj, date);
       }
     }
