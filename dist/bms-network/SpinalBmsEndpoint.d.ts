@@ -1,6 +1,7 @@
 import { Model } from "spinal-core-connectorjs_type";
 /**
  * @property {spinal.Str} id
+ * @property {spinal.Str} typeId
  * @property {spinal.Str} path
  * @property {spinal.Str | spinal.Val} currentValue
  * @property {spinal.Str} unit
@@ -24,6 +25,7 @@ export declare class SpinalBmsEndpoint extends Model {
      */
     static nodeTypeName: string;
     id: spinal.Str;
+    typeId: spinal.Str;
     path: spinal.Str;
     currentValue: spinal.Str | spinal.Val;
     unit: spinal.Str;
@@ -40,6 +42,6 @@ export declare class SpinalBmsEndpoint extends Model {
      * @param {string} [id=genUID('SpinalBmsEndpoint')]
      * @memberof SpinalBmsEndpoint
      */
-    constructor(name?: string, path?: string, currentValue?: string | number | boolean, unit?: string, dataType?: string, type?: string, id?: string);
+    constructor(name?: string, path?: string, currentValue?: string | number | boolean, unit?: string, dataType?: string, type?: string, typeId?: string, id?: string);
 }
 export default SpinalBmsEndpoint;

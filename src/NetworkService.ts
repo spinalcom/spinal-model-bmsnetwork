@@ -253,6 +253,7 @@ export class NetworkService {
       obj.unit,
       InputDataEndpointDataType[obj.dataType],
       InputDataEndpointType[obj.type],
+      obj.typeId,
       obj.id,
     );
     const tmpInfo = {

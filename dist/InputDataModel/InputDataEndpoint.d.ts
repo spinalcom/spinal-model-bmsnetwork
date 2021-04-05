@@ -14,6 +14,7 @@ import { InputDataEndpointType } from "./InputDataEndpointType";
  */
 export interface InputDataEndpoint {
     id: string;
+    typeId: string;
     name: string;
     path: string;
     currentValue: number | string | boolean;

@@ -27,6 +27,7 @@ import { genUID } from "../Utils/genUID";
 
 /**
  * @property {spinal.Str} id
+ * @property {spinal.Str} typeId
  * @property {spinal.Str} path
  * @property {spinal.Str | spinal.Val} currentValue
  * @property {spinal.Str} unit
@@ -51,6 +52,7 @@ export class SpinalBmsEndpoint extends Model {
   public static nodeTypeName: string = "BmsEndpoint";
 
   public id: spinal.Str;
+  public typeId: spinal.Str;
   public path: spinal.Str;
   public currentValue: spinal.Str | spinal.Val;
   public unit: spinal.Str;
@@ -75,11 +77,13 @@ export class SpinalBmsEndpoint extends Model {
     unit: string = "",
     dataType: string = "",
     type: string = "",
+    typeId: string = "",
     id: string = genUID("SpinalBmsEndpoint")
   ) {
     super();
     this.add_attr({
       id,
+      typeId,
       name,
       path,
       currentValue,

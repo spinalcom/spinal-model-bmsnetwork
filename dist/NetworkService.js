@@ -176,7 +176,7 @@ class NetworkService {
      */
     createNewBmsEndpoint(parentId, obj) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = new SpinalBms_1.SpinalBmsEndpoint(obj.name, obj.path, obj.currentValue, obj.unit, InputDataModel_1.InputDataEndpointDataType[obj.dataType], InputDataModel_1.InputDataEndpointType[obj.type], obj.id);
+            const res = new SpinalBms_1.SpinalBmsEndpoint(obj.name, obj.path, obj.currentValue, obj.unit, InputDataModel_1.InputDataEndpointDataType[obj.dataType], InputDataModel_1.InputDataEndpointType[obj.type], obj.typeId, obj.id);
             const tmpInfo = {
                 type: SpinalBms_1.SpinalBmsEndpoint.nodeTypeName,
                 name: obj.name,
