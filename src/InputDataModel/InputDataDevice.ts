@@ -43,4 +43,5 @@ export interface InputDataDevice {
   address: string;
   children: (InputDataEndpoint | InputDataEndpointGroup | InputDataDevice)[];
   nodeTypeName: string;
+  [key: string]: any;
 }

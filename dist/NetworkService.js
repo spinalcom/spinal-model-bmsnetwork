@@ -135,13 +135,9 @@ class NetworkService {
      */
     createNewBmsDevice(parentId, obj) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = new SpinalBms_1.SpinalBmsDevice(obj.name, obj.type, obj.path, obj.address, obj.id);
-            const tmpInfo = {
-                type: SpinalBms_1.SpinalBmsDevice.nodeTypeName,
-                name: obj.name,
-                idNetwork: obj.id,
-                address: obj.address
-            };
+            const res = new SpinalBms_1.SpinalBmsDevice(obj);
+            const tmpInfo = Object.assign({ idNetwork: obj.id, typeNetwork: obj.type }, obj, { id: undefined });
+            tmpInfo.type = SpinalBms_1.SpinalBmsDevice.nodeTypeName;
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsDevice.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
             yield this._createAttributes(childId, res);
@@ -156,12 +152,9 @@ class NetworkService {
      */
     createNewBmsEndpointGroup(parentId, obj) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = new SpinalBms_1.SpinalBmsEndpointGroup(obj.name, obj.type, obj.path, obj.id);
-            const tmpInfo = {
-                type: SpinalBms_1.SpinalBmsEndpointGroup.nodeTypeName,
-                name: obj.name,
-                idNetwork: obj.id,
-            };
+            const res = new SpinalBms_1.SpinalBmsEndpointGroup(obj);
+            const tmpInfo = Object.assign({ idNetwork: obj.id, typeNetwork: obj.type }, obj, { id: undefined });
+            tmpInfo.type = SpinalBms_1.SpinalBmsEndpointGroup.nodeTypeName;
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpointGroup.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
             yield this._createAttributes(childId, res);
@@ -176,12 +169,10 @@ class NetworkService {
      */
     createNewBmsEndpoint(parentId, obj) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = new SpinalBms_1.SpinalBmsEndpoint(obj.name, obj.path, obj.currentValue, obj.unit, InputDataModel_1.InputDataEndpointDataType[obj.dataType], InputDataModel_1.InputDataEndpointType[obj.type], obj.typeId, obj.id);
-            const tmpInfo = {
-                type: SpinalBms_1.SpinalBmsEndpoint.nodeTypeName,
-                name: obj.name,
-                idNetwork: obj.id,
-            };
+            const res = new SpinalBms_1.SpinalBmsEndpoint(obj);
+            const tmpInfo = Object.assign({ idNetwork: obj.id, typeNetwork: obj.type }, obj, { id: undefined });
+            if (!tmpInfo.type)
+                tmpInfo.type = SpinalBms_1.SpinalBmsEndpoint.nodeTypeName;
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpoint.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
             yield this._createAttributes(childId, res);

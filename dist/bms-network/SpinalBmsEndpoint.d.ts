@@ -1,4 +1,5 @@
 import { Model } from "spinal-core-connectorjs_type";
+import { InputDataEndpoint } from "../InputDataModel/InputDataEndpoint";
 /**
  * @property {spinal.Str} id
  * @property {spinal.Str} typeId
@@ -42,6 +43,6 @@ export declare class SpinalBmsEndpoint extends Model {
      * @param {string} [id=genUID('SpinalBmsEndpoint')]
      * @memberof SpinalBmsEndpoint
      */
-    constructor(name?: string, path?: string, currentValue?: string | number | boolean, unit?: string, dataType?: string, type?: string, typeId?: string, id?: string);
+    constructor(info: InputDataEndpoint);
 }
 export default SpinalBmsEndpoint;

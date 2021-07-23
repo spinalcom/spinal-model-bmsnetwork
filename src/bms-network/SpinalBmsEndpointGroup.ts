@@ -23,6 +23,7 @@
  */
 
 import { Model, spinalCore } from 'spinal-core-connectorjs_type';
+import { InputDataEndpointGroup } from '../InputDataModel/InputDataEndpointGroup';
 import { genUID } from '../Utils/genUID';
 
 /**
@@ -61,15 +62,13 @@ export class SpinalBmsEndpointGroup extends Model {
    * @param {string} [id=genUID('SpinalBmsNetwork')]
    * @memberof SpinalBmsEndpointGroup
    */
-  constructor(name: string= '', type: string= '', path: string= '',
-              id: string = genUID('SpinalBmsNetwork')) {
+  constructor(info: InputDataEndpointGroup) {
     super();
-    this.add_attr({
-      id,
-      name,
-      type,
-      path,
-    });
+    if(typeof info.name === "undefined") info.name = "";
+    if(typeof info.type === "undefined") info.type = "";
+    if(typeof info.path === "undefined") info.path = "";
+    if(typeof info.id === "undefined") info.id = genUID('SpinalBmsNetwork')
+    this.add_attr(info);
   }
 }
 

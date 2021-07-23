@@ -50,18 +50,25 @@ class SpinalBmsEndpoint extends spinal_core_connectorjs_type_1.Model {
      * @param {string} [id=genUID('SpinalBmsEndpoint')]
      * @memberof SpinalBmsEndpoint
      */
-    constructor(name = "", path = "", currentValue = "", unit = "", dataType = "", type = "", typeId = "", id = genUID_1.genUID("SpinalBmsEndpoint")) {
+    constructor(info) {
         super();
-        this.add_attr({
-            id,
-            typeId,
-            name,
-            path,
-            currentValue,
-            unit,
-            dataType,
-            type
-        });
+        if (typeof info.name === "undefined")
+            info.name = "";
+        if (typeof info.path === "undefined")
+            info.path = "";
+        if (typeof info.currentValue === "undefined")
+            info.currentValue = "";
+        if (typeof info.unit === "undefined")
+            info.unit = "";
+        if (typeof info.dataType === "undefined")
+            info.dataType = "";
+        if (typeof info.type === "undefined")
+            info.type = "";
+        if (typeof info.typeId === "undefined")
+            info.typeId = "";
+        if (typeof info.id === "undefined")
+            info.id = genUID_1.genUID("SpinalBmsEndpoint");
+        this.add_attr(info);
     }
 }
 exports.SpinalBmsEndpoint = SpinalBmsEndpoint;

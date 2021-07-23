@@ -182,13 +182,10 @@ export class NetworkService {
     parentId: string,
     obj: InputDataDevice,
   ): Promise<any> {
-    const res = new SpinalBmsDevice(obj.name, obj.type, obj.path, obj.address, obj.id);
-    const tmpInfo = {
-      type: SpinalBmsDevice.nodeTypeName,
-      name: obj.name,
-      idNetwork: obj.id,
-      address: obj.address
-    };
+    const res = new SpinalBmsDevice(obj);
+    const tmpInfo = Object.assign({idNetwork : obj.id, typeNetwork: obj.type},obj,{id: undefined});
+    tmpInfo.type = SpinalBmsDevice.nodeTypeName;
+
     const childId = SpinalGraphService.createNode(tmpInfo, res);
     await SpinalGraphService.addChildInContext(
       parentId,
@@ -211,18 +208,13 @@ export class NetworkService {
     parentId: string,
     obj: InputDataEndpointGroup,
   ): Promise<any> {
-    const res = new SpinalBmsEndpointGroup(
-      obj.name,
-      obj.type,
-      obj.path,
-      obj.id,
-    );
-    const tmpInfo = {
-      type: SpinalBmsEndpointGroup.nodeTypeName,
-      name: obj.name,
-      idNetwork: obj.id,
-    };
+    const res = new SpinalBmsEndpointGroup(obj);
+    
+    const tmpInfo = Object.assign({idNetwork : obj.id, typeNetwork: obj.type},obj,{id: undefined});
+    tmpInfo.type = SpinalBmsEndpointGroup.nodeTypeName;
+    
     const childId = SpinalGraphService.createNode(tmpInfo, res);
+
     await SpinalGraphService.addChildInContext(
       parentId,
       childId,
@@ -246,21 +238,10 @@ export class NetworkService {
     parentId: string,
     obj: InputDataEndpoint,
   ): Promise<any> {
-    const res = new SpinalBmsEndpoint(
-      obj.name,
-      obj.path,
-      obj.currentValue,
-      obj.unit,
-      InputDataEndpointDataType[obj.dataType],
-      InputDataEndpointType[obj.type],
-      obj.typeId,
-      obj.id,
-    );
-    const tmpInfo = {
-      type: SpinalBmsEndpoint.nodeTypeName,
-      name: obj.name,
-      idNetwork: obj.id,
-    };
+    const res = new SpinalBmsEndpoint(obj);
+
+    const tmpInfo = Object.assign({idNetwork : obj.id, typeNetwork: obj.type},obj,{id: undefined});
+    if(!tmpInfo.type) tmpInfo.type = SpinalBmsEndpoint.nodeTypeName;
 
     const childId = SpinalGraphService.createNode(tmpInfo, res);
 

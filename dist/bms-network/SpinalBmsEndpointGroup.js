@@ -44,14 +44,17 @@ class SpinalBmsEndpointGroup extends spinal_core_connectorjs_type_1.Model {
      * @param {string} [id=genUID('SpinalBmsNetwork')]
      * @memberof SpinalBmsEndpointGroup
      */
-    constructor(name = '', type = '', path = '', id = genUID_1.genUID('SpinalBmsNetwork')) {
+    constructor(info) {
         super();
-        this.add_attr({
-            id,
-            name,
-            type,
-            path,
-        });
+        if (typeof info.name === "undefined")
+            info.name = "";
+        if (typeof info.type === "undefined")
+            info.type = "";
+        if (typeof info.path === "undefined")
+            info.path = "";
+        if (typeof info.id === "undefined")
+            info.id = genUID_1.genUID('SpinalBmsNetwork');
+        this.add_attr(info);
     }
 }
 exports.SpinalBmsEndpointGroup = SpinalBmsEndpointGroup;

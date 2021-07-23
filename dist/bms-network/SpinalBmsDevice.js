@@ -44,15 +44,17 @@ class SpinalBmsDevice extends spinal_core_connectorjs_type_1.Model {
      * @param {string} [id=genUID('SpinalBmsDevice')]
      * @memberof SpinalBmsDevice
      */
-    constructor(name = '', type = '', path = '', address = '', id = genUID_1.genUID('SpinalBmsDevice')) {
+    constructor(info) {
         super();
-        this.add_attr({
-            id,
-            name,
-            type,
-            address,
-            path,
-        });
+        if (typeof info.id === "undefined")
+            info.id = genUID_1.genUID('SpinalBmsDevice');
+        if (typeof info.name === "undefined")
+            info.name = "";
+        if (typeof info.type === "undefined")
+            info.type = "";
+        if (typeof info.path === "undefined")
+            info.path = "";
+        this.add_attr(info);
     }
 }
 exports.SpinalBmsDevice = SpinalBmsDevice;

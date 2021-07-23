@@ -19,7 +19,8 @@ export interface InputDataEndpoint {
     path: string;
     currentValue: number | string | boolean;
     unit: string;
-    dataType: InputDataEndpointDataType;
-    type: InputDataEndpointType;
+    dataType: InputDataEndpointDataType | string;
+    type: InputDataEndpointType | string;
     nodeTypeName: string;
+    [key: string]: any;
 }

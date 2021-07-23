@@ -24,7 +24,7 @@
 
 import { Model, spinalCore } from 'spinal-core-connectorjs_type';
 import { genUID } from '../Utils/genUID';
-
+import { InputDataDevice } from "../InputDataModel/InputDataDevice";
 /**
  * @property {spinal.Str} id;
  * @property {spinal.Str} name;
@@ -62,16 +62,14 @@ export class SpinalBmsDevice extends Model {
    * @param {string} [id=genUID('SpinalBmsDevice')]
    * @memberof SpinalBmsDevice
    */
-  constructor(name: string = '', type: string = '', path: string = '', address: String = '',
-    id: string = genUID('SpinalBmsDevice')) {
+  constructor(info: InputDataDevice) {
     super();
-    this.add_attr({
-      id,
-      name,
-      type,
-      address,
-      path,
-    });
+    if(typeof info.id === "undefined") info.id = genUID('SpinalBmsDevice');
+    if(typeof info.name === "undefined") info.name = "";
+    if(typeof info.type === "undefined") info.type = "";
+    if(typeof info.path === "undefined") info.path = "";
+
+    this.add_attr(info);
   }
 }
 spinalCore.register_models(SpinalBmsDevice);
