@@ -241,7 +241,8 @@ export class NetworkService {
     const res = new SpinalBmsEndpoint(obj);
 
     const tmpInfo = Object.assign({idNetwork : obj.id, typeNetwork: obj.type},obj,{id: undefined});
-    if(!tmpInfo.type) tmpInfo.type = SpinalBmsEndpoint.nodeTypeName;
+    
+    tmpInfo.type = SpinalBmsEndpoint.nodeTypeName;
 
     const childId = SpinalGraphService.createNode(tmpInfo, res);
 
