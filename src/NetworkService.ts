@@ -109,8 +109,7 @@ export class NetworkService {
         );
       } else {
         throw Error(
-          `Context named "${
-          configService.contextName}" is not found in the graph.`,
+          `Context named "${configService.contextName}" is not found in the graph.`,
         );
       }
     }
@@ -124,7 +123,7 @@ export class NetworkService {
     let childFoundId: string = '';
     for (const childContext of childrenContext) {
       if (typeof childContext.networkName !== 'undefined' &&
-        childContext.networkName.get() === configService.networkType) {
+        childContext.networkName.get() === configService.networkName) {
         childFoundId = childContext.id.get();
         break;
       }

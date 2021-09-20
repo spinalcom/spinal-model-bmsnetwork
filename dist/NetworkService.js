@@ -90,7 +90,7 @@ class NetworkService {
             let childFoundId = '';
             for (const childContext of childrenContext) {
                 if (typeof childContext.networkName !== 'undefined' &&
-                    childContext.networkName.get() === configService.networkType) {
+                    childContext.networkName.get() === configService.networkName) {
                     childFoundId = childContext.id.get();
                     break;
                 }
