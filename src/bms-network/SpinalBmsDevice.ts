@@ -62,12 +62,14 @@ export class SpinalBmsDevice extends Model {
    * @param {string} [id=genUID('SpinalBmsDevice')]
    * @memberof SpinalBmsDevice
    */
-  constructor(info: InputDataDevice) {
+  constructor(info?: InputDataDevice) {
     super();
-    if(typeof info.id === "undefined") info.id = genUID('SpinalBmsDevice');
-    if(typeof info.name === "undefined") info.name = "";
-    if(typeof info.type === "undefined") info.type = "";
-    if(typeof info.path === "undefined") info.path = "";
+    if (!info) info = <any>{};
+
+    if (typeof info.id === "undefined") info.id = genUID('SpinalBmsDevice');
+    if (typeof info.name === "undefined") info.name = "";
+    if (typeof info.type === "undefined") info.type = "";
+    if (typeof info.path === "undefined") info.path = "";
 
     this.add_attr(info);
   }

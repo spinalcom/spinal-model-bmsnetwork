@@ -46,6 +46,8 @@ class SpinalBmsDevice extends spinal_core_connectorjs_type_1.Model {
      */
     constructor(info) {
         super();
+        if (!info)
+            info = {};
         if (typeof info.id === "undefined")
             info.id = genUID_1.genUID('SpinalBmsDevice');
         if (typeof info.name === "undefined")

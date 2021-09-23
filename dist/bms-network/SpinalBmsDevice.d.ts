@@ -35,6 +35,6 @@ export declare class SpinalBmsDevice extends Model {
      * @param {string} [id=genUID('SpinalBmsDevice')]
      * @memberof SpinalBmsDevice
      */
-    constructor(info: InputDataDevice);
+    constructor(info?: InputDataDevice);
 }
 export default SpinalBmsDevice;

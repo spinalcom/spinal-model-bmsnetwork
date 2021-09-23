@@ -73,15 +73,16 @@ export class SpinalBmsEndpoint extends Model {
    */
   constructor(info: InputDataEndpoint) {
     super();
+    if (!info) info = <any>{};
 
-    if(typeof info.name === "undefined") info.name = "";
-    if(typeof info.path === "undefined") info.path = "";
-    if(typeof info.currentValue === "undefined") info.currentValue  = "";
-    if(typeof info.unit === "undefined") info.unit = "";
-    if(typeof info.dataType === "undefined") info.dataType = "";
-    if(typeof info.type === "undefined") info.type = "";
-    if(typeof info.typeId === "undefined") info.typeId = "";
-    if(typeof info.id === "undefined") info.id = genUID("SpinalBmsEndpoint");
+    if (typeof info.name === "undefined") info.name = "";
+    if (typeof info.path === "undefined") info.path = "";
+    if (typeof info.currentValue === "undefined") info.currentValue = "";
+    if (typeof info.unit === "undefined") info.unit = "";
+    if (typeof info.dataType === "undefined") info.dataType = "";
+    if (typeof info.type === "undefined") info.type = "";
+    if (typeof info.typeId === "undefined") info.typeId = "";
+    if (typeof info.id === "undefined") info.id = genUID("SpinalBmsEndpoint");
 
     this.add_attr(info);
   }

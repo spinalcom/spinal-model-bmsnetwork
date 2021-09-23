@@ -64,10 +64,11 @@ export class SpinalBmsEndpointGroup extends Model {
    */
   constructor(info: InputDataEndpointGroup) {
     super();
-    if(typeof info.name === "undefined") info.name = "";
-    if(typeof info.type === "undefined") info.type = "";
-    if(typeof info.path === "undefined") info.path = "";
-    if(typeof info.id === "undefined") info.id = genUID('SpinalBmsNetwork')
+    if (!info) info = <any>{};
+    if (typeof info.name === "undefined") info.name = "";
+    if (typeof info.type === "undefined") info.type = "";
+    if (typeof info.path === "undefined") info.path = "";
+    if (typeof info.id === "undefined") info.id = genUID('SpinalBmsNetwork')
     this.add_attr(info);
   }
 }

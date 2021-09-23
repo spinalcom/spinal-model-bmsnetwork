@@ -52,6 +52,8 @@ class SpinalBmsEndpoint extends spinal_core_connectorjs_type_1.Model {
      */
     constructor(info) {
         super();
+        if (!info)
+            info = {};
         if (typeof info.name === "undefined")
             info.name = "";
         if (typeof info.path === "undefined")
