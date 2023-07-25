@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SpinalTimeSeriesArchiveDay = exports.SpinalTimeSeriesArchive = exports.SpinalTimeSeries = exports.SpinalServiceTimeseries = exports.SpinalBmsEndpointGroup = exports.SpinalBmsEndpoint = exports.SpinalBmsNetwork = exports.SpinalBmsDevice = exports.InputDataEndpointDataType = exports.InputDataEndpointType = exports.NetworkService = void 0;
 /*
  * Copyright 2018 SpinalCom - www.spinalcom.com
  *
@@ -35,18 +36,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const spinal_core_connectorjs_type_1 = require("spinal-core-connectorjs_type");
 const spinal_env_viewer_graph_service_1 = require("spinal-env-viewer-graph-service");
 const spinal_model_timeseries_1 = require("spinal-model-timeseries");
-exports.SpinalServiceTimeseries = spinal_model_timeseries_1.SpinalServiceTimeseries;
-exports.SpinalTimeSeries = spinal_model_timeseries_1.SpinalTimeSeries;
-exports.SpinalTimeSeriesArchive = spinal_model_timeseries_1.SpinalTimeSeriesArchive;
-exports.SpinalTimeSeriesArchiveDay = spinal_model_timeseries_1.SpinalTimeSeriesArchiveDay;
+Object.defineProperty(exports, "SpinalServiceTimeseries", { enumerable: true, get: function () { return spinal_model_timeseries_1.SpinalServiceTimeseries; } });
+Object.defineProperty(exports, "SpinalTimeSeries", { enumerable: true, get: function () { return spinal_model_timeseries_1.SpinalTimeSeries; } });
+Object.defineProperty(exports, "SpinalTimeSeriesArchive", { enumerable: true, get: function () { return spinal_model_timeseries_1.SpinalTimeSeriesArchive; } });
+Object.defineProperty(exports, "SpinalTimeSeriesArchiveDay", { enumerable: true, get: function () { return spinal_model_timeseries_1.SpinalTimeSeriesArchiveDay; } });
 const InputDataModel_1 = require("./InputDataModel/InputDataModel");
-exports.InputDataEndpointDataType = InputDataModel_1.InputDataEndpointDataType;
-exports.InputDataEndpointType = InputDataModel_1.InputDataEndpointType;
+Object.defineProperty(exports, "InputDataEndpointDataType", { enumerable: true, get: function () { return InputDataModel_1.InputDataEndpointDataType; } });
+Object.defineProperty(exports, "InputDataEndpointType", { enumerable: true, get: function () { return InputDataModel_1.InputDataEndpointType; } });
 const SpinalBms_1 = require("./SpinalBms");
-exports.SpinalBmsDevice = SpinalBms_1.SpinalBmsDevice;
-exports.SpinalBmsEndpoint = SpinalBms_1.SpinalBmsEndpoint;
-exports.SpinalBmsEndpointGroup = SpinalBms_1.SpinalBmsEndpointGroup;
-exports.SpinalBmsNetwork = SpinalBms_1.SpinalBmsNetwork;
+Object.defineProperty(exports, "SpinalBmsDevice", { enumerable: true, get: function () { return SpinalBms_1.SpinalBmsDevice; } });
+Object.defineProperty(exports, "SpinalBmsEndpoint", { enumerable: true, get: function () { return SpinalBms_1.SpinalBmsEndpoint; } });
+Object.defineProperty(exports, "SpinalBmsEndpointGroup", { enumerable: true, get: function () { return SpinalBms_1.SpinalBmsEndpointGroup; } });
+Object.defineProperty(exports, "SpinalBmsNetwork", { enumerable: true, get: function () { return SpinalBms_1.SpinalBmsNetwork; } });
 const spinal_env_viewer_plugin_documentation_service_1 = require("spinal-env-viewer-plugin-documentation-service");
 const throttle = require('lodash.throttle');
 /**
@@ -182,6 +183,20 @@ class NetworkService {
             };
             const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
             yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBms_1.SpinalBmsEndpoint.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
+            yield this._createAttributes(childId, res);
+            return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
+        });
+    }
+    createNewBmsEndpointWithoutContext(parentId, obj) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = new SpinalBms_1.SpinalBmsEndpoint(obj.name, obj.path, obj.currentValue, obj.unit, InputDataModel_1.InputDataEndpointDataType[obj.dataType], InputDataModel_1.InputDataEndpointType[obj.type], obj.id);
+            const tmpInfo = {
+                type: SpinalBms_1.SpinalBmsEndpoint.nodeTypeName,
+                name: obj.name,
+                idNetwork: obj.id,
+            };
+            const childId = spinal_env_viewer_graph_service_1.SpinalGraphService.createNode(tmpInfo, res);
+            yield spinal_env_viewer_graph_service_1.SpinalGraphService.addChild(parentId, childId, SpinalBms_1.SpinalBmsEndpoint.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
             yield this._createAttributes(childId, res);
             return spinal_env_viewer_graph_service_1.SpinalGraphService.getInfo(childId);
         });

@@ -23,6 +23,7 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InputDataEndpointType = void 0;
 /**
  * @enum {number}
  */
@@ -37,5 +38,5 @@ var InputDataEndpointType;
     InputDataEndpointType[InputDataEndpointType["Other"] = 6] = "Other";
     InputDataEndpointType[InputDataEndpointType["Consigne"] = 7] = "Consigne";
     InputDataEndpointType[InputDataEndpointType["co2"] = 8] = "co2";
-})(InputDataEndpointType = exports.InputDataEndpointType || (exports.InputDataEndpointType = {}));
+})(InputDataEndpointType || (exports.InputDataEndpointType = InputDataEndpointType = {}));
 //# sourceMappingURL=InputDataEndpointType.js.map

@@ -23,8 +23,9 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InputDataEndpointDataType = exports.InputDataEndpointType = void 0;
 const InputDataEndpointDataType_1 = require("./InputDataEndpointDataType");
-exports.InputDataEndpointDataType = InputDataEndpointDataType_1.InputDataEndpointDataType;
+Object.defineProperty(exports, "InputDataEndpointDataType", { enumerable: true, get: function () { return InputDataEndpointDataType_1.InputDataEndpointDataType; } });
 const InputDataEndpointType_1 = require("./InputDataEndpointType");
-exports.InputDataEndpointType = InputDataEndpointType_1.InputDataEndpointType;
+Object.defineProperty(exports, "InputDataEndpointType", { enumerable: true, get: function () { return InputDataEndpointType_1.InputDataEndpointType; } });
 //# sourceMappingURL=InputDataModel.js.map

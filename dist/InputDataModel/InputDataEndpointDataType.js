@@ -23,6 +23,7 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InputDataEndpointDataType = void 0;
 /**
  * @enum {number}
  */
@@ -49,5 +50,5 @@ var InputDataEndpointDataType;
     InputDataEndpointDataType[InputDataEndpointDataType["Long"] = 18] = "Long";
     InputDataEndpointDataType[InputDataEndpointDataType["String"] = 19] = "String";
     InputDataEndpointDataType[InputDataEndpointDataType["Duration"] = 20] = "Duration";
-})(InputDataEndpointDataType = exports.InputDataEndpointDataType || (exports.InputDataEndpointDataType = {}));
+})(InputDataEndpointDataType || (exports.InputDataEndpointDataType = InputDataEndpointDataType = {}));
 //# sourceMappingURL=InputDataEndpointDataType.js.map

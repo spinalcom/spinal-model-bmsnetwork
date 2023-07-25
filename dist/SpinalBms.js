@@ -23,14 +23,15 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SpinalBmsEndpointGroup = exports.SpinalBmsEndpoint = exports.SpinalBmsNetwork = exports.SpinalBmsDevice = void 0;
 const SpinalBmsDevice_1 = require("./bms-network/SpinalBmsDevice");
-exports.SpinalBmsDevice = SpinalBmsDevice_1.SpinalBmsDevice;
+Object.defineProperty(exports, "SpinalBmsDevice", { enumerable: true, get: function () { return SpinalBmsDevice_1.SpinalBmsDevice; } });
 const SpinalBmsNetwork_1 = require("./bms-network/SpinalBmsNetwork");
-exports.SpinalBmsNetwork = SpinalBmsNetwork_1.SpinalBmsNetwork;
+Object.defineProperty(exports, "SpinalBmsNetwork", { enumerable: true, get: function () { return SpinalBmsNetwork_1.SpinalBmsNetwork; } });
 const SpinalBmsEndpoint_1 = require("./bms-network/SpinalBmsEndpoint");
-exports.SpinalBmsEndpoint = SpinalBmsEndpoint_1.SpinalBmsEndpoint;
+Object.defineProperty(exports, "SpinalBmsEndpoint", { enumerable: true, get: function () { return SpinalBmsEndpoint_1.SpinalBmsEndpoint; } });
 const SpinalBmsEndpointGroup_1 = require("./bms-network/SpinalBmsEndpointGroup");
-exports.SpinalBmsEndpointGroup = SpinalBmsEndpointGroup_1.SpinalBmsEndpointGroup;
+Object.defineProperty(exports, "SpinalBmsEndpointGroup", { enumerable: true, get: function () { return SpinalBmsEndpointGroup_1.SpinalBmsEndpointGroup; } });
 const obj = {
     SpinalBmsDevice: SpinalBmsDevice_1.SpinalBmsDevice,
     SpinalBmsNetwork: SpinalBmsNetwork_1.SpinalBmsNetwork,

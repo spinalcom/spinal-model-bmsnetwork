@@ -23,6 +23,7 @@
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SpinalBmsEndpoint = void 0;
 const spinal_core_connectorjs_type_1 = require("spinal-core-connectorjs_type");
 const genUID_1 = require("../Utils/genUID");
 /**
@@ -48,7 +49,7 @@ class SpinalBmsEndpoint extends spinal_core_connectorjs_type_1.Model {
      * @param {string} [id=genUID('SpinalBmsEndpoint')]
      * @memberof SpinalBmsEndpoint
      */
-    constructor(name = "", path = "", currentValue = "", unit = "", dataType = "", type = "", id = genUID_1.genUID("SpinalBmsEndpoint")) {
+    constructor(name = "", path = "", currentValue = "", unit = "", dataType = "", type = "", id = (0, genUID_1.genUID)("SpinalBmsEndpoint")) {
         super();
         this.add_attr({
             id,

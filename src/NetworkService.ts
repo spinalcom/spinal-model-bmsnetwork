@@ -28,6 +28,7 @@ import {
   SpinalContext,
   SpinalGraphService,
   SpinalNode,
+  SpinalNodeRef,
 } from 'spinal-env-viewer-graph-service';
 
 import {
@@ -241,10 +242,7 @@ export class NetworkService {
    * @returns {Promise<any>}
    * @memberof NetworkService
    */
-  public async createNewBmsEndpoint(
-    parentId: string,
-    obj: InputDataEndpoint,
-  ): Promise<any> {
+  public async createNewBmsEndpoint(parentId: string, obj: InputDataEndpoint ): Promise<any> {
     const res = new SpinalBmsEndpoint(
       obj.name,
       obj.path,
@@ -262,16 +260,34 @@ export class NetworkService {
 
     const childId = SpinalGraphService.createNode(tmpInfo, res);
 
-    await SpinalGraphService.addChildInContext(
-      parentId,
-      childId,
-      this.contextId,
-      SpinalBmsEndpoint.relationName,
-      SPINAL_RELATION_PTR_LST_TYPE,
-    );
+    await SpinalGraphService.addChildInContext(parentId, childId, this.contextId, SpinalBmsEndpoint.relationName, SPINAL_RELATION_PTR_LST_TYPE);
 
     await this._createAttributes(childId, res);
 
+    return SpinalGraphService.getInfo(childId);
+  }
+
+  public async createNewBmsEndpointWithoutContext(parentId: string, obj: InputDataEndpoint ): Promise<SpinalNodeRef> {
+    const res = new SpinalBmsEndpoint(
+      obj.name,
+      obj.path,
+      obj.currentValue,
+      obj.unit,
+      InputDataEndpointDataType[obj.dataType],
+      InputDataEndpointType[obj.type],
+      obj.id,
+    );
+    const tmpInfo = {
+      type: SpinalBmsEndpoint.nodeTypeName,
+      name: obj.name,
+      idNetwork: obj.id,
+    };
+
+    const childId = SpinalGraphService.createNode(tmpInfo, res);
+
+    await SpinalGraphService.addChild(parentId, childId, SpinalBmsEndpoint.relationName, SPINAL_RELATION_PTR_LST_TYPE);
+
+    await this._createAttributes(childId, res);
     return SpinalGraphService.getInfo(childId);
   }
 
