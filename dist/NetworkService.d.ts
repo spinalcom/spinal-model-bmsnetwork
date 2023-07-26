@@ -1,4 +1,4 @@
-import { SpinalNodeRef } from 'spinal-env-viewer-graph-service';
+import { SpinalNode, SpinalNodeRef } from 'spinal-env-viewer-graph-service';
 import { SpinalDateValue, SpinalDateValueArray, SpinalServiceTimeseries, SpinalTimeSeries, SpinalTimeSeriesArchive, SpinalTimeSeriesArchiveDay } from 'spinal-model-timeseries';
 import { InputDataDevice, InputDataEndpoint, InputDataEndpointDataType, InputDataEndpointGroup, InputDataEndpointType } from './InputDataModel/InputDataModel';
 import { SpinalBmsDevice, SpinalBmsEndpoint, SpinalBmsEndpointGroup, SpinalBmsNetwork } from './SpinalBms';
@@ -123,6 +123,7 @@ export declare class NetworkService {
      * @memberof NetworkService
      */
     getTimeseries(idEndpoint: string): Promise<SpinalTimeSeries>;
+    getTimeseriesProm(endpoint: SpinalNode): Promise<SpinalNode>;
     /**
      * @param {string} idEndpoint
      * @param {(string|boolean|number)} value
@@ -131,6 +132,7 @@ export declare class NetworkService {
      * @memberof NetworkService
      */
     setEndpointValue(idEndpoint: string, value: string | boolean | number, date?: number | string | Date): Promise<any>;
+    linkControlEndpointToEndPoint(controlEndPoint: SpinalNode, endPoint: SpinalNode): Promise<void>;
     private _createAttributes;
 }
 export default NetworkService;

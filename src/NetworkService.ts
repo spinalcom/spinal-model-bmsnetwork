@@ -508,6 +508,13 @@ export class NetworkService {
     return this.spinalServiceTimeseries.getOrCreateTimeSeries(idEndpoint);
   }
 
+  async getTimeseriesProm(endpoint: SpinalNode): Promise<SpinalNode> {
+     const timeseriesLst = await endpoint.getChildren([SpinalTimeSeries.relationName ]);
+
+    if (timeseriesLst.length === 0) return;
+    return timeseriesLst[0];
+  }
+
   /**
    * @param {string} idEndpoint
    * @param {(string|boolean|number)} value
@@ -547,6 +554,41 @@ export class NetworkService {
       //     value,
       //     new Date(date),
       // );
+    }
+  }
+
+  async linkControlEndpointToEndPoint(controlEndPoint: SpinalNode, endPoint: SpinalNode) {
+    // @ts-ignore
+    SpinalGraphService._addNode(endPoint);
+
+    const [
+    endpointTimeseries,
+    endPointElement,
+    controlEndPointTimeseries,
+    controlEndPointElement,
+    controlEndPointCatAttr
+  ] = await Promise.all([
+    this.getTimeseriesProm(endPoint),
+    <Promise<SpinalBmsEndpoint>>endPoint.element.load(),
+    this.getTimeseriesProm(controlEndPoint).catch(() => undefined),
+    <Promise<SpinalBmsEndpoint>>controlEndPoint.element.load(),
+    serviceDocumentation.getCategoryByName(controlEndPoint, 'default')])
+
+    if (controlEndPointTimeseries) {
+      await controlEndPoint.removeChild(controlEndPointTimeseries, SpinalTimeSeries.relationName, SPINAL_RELATION_PTR_LST_TYPE)
+    }
+    const endPointDataModel = endPointElement.currentValue;
+    controlEndPointElement.mod_attr("currentValue", endPointDataModel)
+    const [attrs] = await Promise.all([
+      serviceDocumentation.getAttributesByCategory(controlEndPoint, controlEndPointCatAttr),
+      controlEndPoint.addChild(endpointTimeseries, SpinalTimeSeries.relationName, SPINAL_RELATION_PTR_LST_TYPE),
+    ]);
+
+    for (const attr of attrs) {
+      if (attr.label.get() === "currentValue") {
+        attr.mod_attr("value", endPointDataModel)
+        return
+      }
     }
   }
 

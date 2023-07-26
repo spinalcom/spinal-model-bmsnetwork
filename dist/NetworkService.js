@@ -388,6 +388,14 @@ class NetworkService {
     getTimeseries(idEndpoint) {
         return this.spinalServiceTimeseries.getOrCreateTimeSeries(idEndpoint);
     }
+    getTimeseriesProm(endpoint) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const timeseriesLst = yield endpoint.getChildren([spinal_model_timeseries_1.SpinalTimeSeries.relationName]);
+            if (timeseriesLst.length === 0)
+                return;
+            return timeseriesLst[0];
+        });
+    }
     /**
      * @param {string} idEndpoint
      * @param {(string|boolean|number)} value
@@ -421,6 +429,34 @@ class NetworkService {
                 //     value,
                 //     new Date(date),
                 // );
+            }
+        });
+    }
+    linkControlEndpointToEndPoint(controlEndPoint, endPoint) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // @ts-ignore
+            spinal_env_viewer_graph_service_1.SpinalGraphService._addNode(endPoint);
+            const [endpointTimeseries, endPointElement, controlEndPointTimeseries, controlEndPointElement, controlEndPointCatAttr] = yield Promise.all([
+                this.getTimeseriesProm(endPoint),
+                endPoint.element.load(),
+                this.getTimeseriesProm(controlEndPoint).catch(() => undefined),
+                controlEndPoint.element.load(),
+                spinal_env_viewer_plugin_documentation_service_1.serviceDocumentation.getCategoryByName(controlEndPoint, 'default')
+            ]);
+            if (controlEndPointTimeseries) {
+                yield controlEndPoint.removeChild(controlEndPointTimeseries, spinal_model_timeseries_1.SpinalTimeSeries.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE);
+            }
+            const endPointDataModel = endPointElement.currentValue;
+            controlEndPointElement.mod_attr("currentValue", endPointDataModel);
+            const [attrs] = yield Promise.all([
+                spinal_env_viewer_plugin_documentation_service_1.serviceDocumentation.getAttributesByCategory(controlEndPoint, controlEndPointCatAttr),
+                controlEndPoint.addChild(endpointTimeseries, spinal_model_timeseries_1.SpinalTimeSeries.relationName, spinal_env_viewer_graph_service_1.SPINAL_RELATION_PTR_LST_TYPE),
+            ]);
+            for (const attr of attrs) {
+                if (attr.label.get() === "currentValue") {
+                    attr.mod_attr("value", endPointDataModel);
+                    return;
+                }
             }
         });
     }
